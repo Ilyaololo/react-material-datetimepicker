@@ -12,6 +12,8 @@ export default class Calendar extends React.Component {
     }
 
     render() {
+        const {month, year} = this.props;
+
         return (
             <div className="c-datepicker__calendar" data-rome-id="0">
                 <div className="c-datepicker__calendar" id="inline-block">
@@ -19,17 +21,17 @@ export default class Calendar extends React.Component {
                         <div className="c-datepicker__month">
                             <button className="c-datepicker__back" type="button"/>
                             <button className="c-datepicker__next" type="button"/>
-                            <div className="rd-month-label">November 2016</div>
+                            <div className="rd-month-label">{month} {year}</div>
                             <table className="c-datepicker__days">
                                 <thead className="c-datepicker__days-head">
                                 <tr className="c-datepicker__days-row">
-                                    <th className="c-datepicker__day-head">Su</th>
-                                    <th className="c-datepicker__day-head">Mo</th>
-                                    <th className="c-datepicker__day-head">Tu</th>
-                                    <th className="c-datepicker__day-head">We</th>
-                                    <th className="c-datepicker__day-head">Th</th>
-                                    <th className="c-datepicker__day-head">Fr</th>
-                                    <th className="c-datepicker__day-head">Sa</th>
+                                    <th className="c-datepicker__day-head">Пн</th>
+                                    <th className="c-datepicker__day-head">Вт</th>
+                                    <th className="c-datepicker__day-head">Ср</th>
+                                    <th className="c-datepicker__day-head">Чт</th>
+                                    <th className="c-datepicker__day-head">Пт</th>
+                                    <th className="c-datepicker__day-head">Сб</th>
+                                    <th className="c-datepicker__day-head">Вс</th>
                                 </tr>
                                 </thead>
                                 <tbody className="c-datepicker__days-body" data-rome-offset="0">
@@ -88,4 +90,7 @@ export default class Calendar extends React.Component {
     }
 }
 
-Calendar.propTypes = {};
+Calendar.propTypes = {
+    month: React.PropTypes.string.isRequired,
+    year: React.PropTypes.string.isRequired
+};
