@@ -25,6 +25,7 @@
     "gulp-myth": "^1.1.0",
     "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^2.2.0",
+    "moment": "^2.16.0",
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
     "vinyl-buffer": "^1.0.0",

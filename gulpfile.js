@@ -12,7 +12,7 @@ let gulp = require('gulp'),
 
 gulp.task('scripts', () => {
     let cb = browserify({
-        entries: ['./src/index.js'],
+        entries: ['./app.js'],
         debug: true,
         cache: {},
         packageCache: {},
@@ -37,18 +37,8 @@ gulp.task('scripts', () => {
     rebundle();
 });
 
-gulp.task('convert-less', function () {
-    gulp.src('./src/*.less')
-        .pipe(sourcemaps.init())
-        .pipe(less())
-        .pipe(myth())
-        .pipe(concat("main.css"))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest('build/css/'));
-});
-
 gulp.task('convert-sass', function () {
-    gulp.src('./src/*.scss')
+    gulp.src('./src/**/*.scss')
         .pipe(sourcemaps.init())
         .pipe(sass())
         .pipe(myth())
