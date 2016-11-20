@@ -18,7 +18,7 @@ class App extends React.Component {
         moment.locale('ru');
 
         this.state = {
-            type: false, // false - календарь, true - часы
+            type: true, // false - часы, true - календарь
             hours: moment().format("HH"),
             minutes: moment().format("mm"),
             day: moment().format("DD"),
@@ -64,7 +64,7 @@ class App extends React.Component {
      */
     handleChangeHours = (hours) => {
         this.setState({
-            hours: hours
+            hours: moment(String(hours), "HH").format("HH")
         });
     };
 
@@ -74,7 +74,7 @@ class App extends React.Component {
      */
     handleChangeMinutes = (minutes) => {
         this.setState({
-            minutes: minutes
+            minutes: moment(String(minutes), "mm").format("mm")
         });
     };
 

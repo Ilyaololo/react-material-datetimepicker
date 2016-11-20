@@ -481,9 +481,9 @@ body {
 }
 
 .c-datepicker__clock__minutes {
-  visibility: hidden;
-  transform: translateY(30px) scale(0.6);
-  opacity: 0;
+  transform: translateY(30px) scale(0.7);
+  font-size: 18px;
+  opacity: 1;
 }
 
 .c-datepicker__clock__hours {

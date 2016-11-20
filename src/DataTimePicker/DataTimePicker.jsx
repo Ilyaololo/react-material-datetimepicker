@@ -22,7 +22,12 @@ export default class DataTimePicker extends React.Component {
                 year={year}
             />
         ) : (
-            <Clock />
+            <Clock
+                hours={hours}
+                minutes={minutes}
+                handleChangeHours={handleChangeHours}
+                handleChangeMinutes={handleChangeMinutes}
+            />
         );
 
         return (
@@ -34,9 +39,9 @@ export default class DataTimePicker extends React.Component {
                         type="radio"
                         name="date-toggle"
                         value="time"
-                        checked={ type }
-                        onChange={() => {
-                            handleChangeType(true)
+                        defaultChecked={ !type }
+                        onClick={() => {
+                            handleChangeType(false)
                         }}
                     />
                     <input
@@ -44,9 +49,9 @@ export default class DataTimePicker extends React.Component {
                         type="radio"
                         name="date-toggle"
                         value="calendar"
-                        checked={ type }
-                        onChange={() => {
-                            handleChangeType(false)
+                        defaultChecked={ type }
+                        onClick={() => {
+                            handleChangeType(true)
                         }}
                     />
                     <div className="c-datepicker__header">
