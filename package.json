@@ -1,0 +1,19 @@
+{
+  "name": "material-datetime-picker",
+  "version": "0.0.1",
+  "description": "Component for React.js.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ilyaololo/material-datetime-picker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ilyaololo/material-datetime-picker/issues"
+  },
+  "homepage": "https://github.com/Ilyaololo/material-datetime-picker#readme"
+}
