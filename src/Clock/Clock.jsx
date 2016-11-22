@@ -31,11 +31,24 @@ export default class Clock extends Component {
         handleChangeHours(e.target.innerText);
     };
 
+    componentDidMount() {
+        const {hours} = this.props;
+        if (parseInt(hours, 10) >= 12) {
+            this.setState({
+                type: false
+            });
+        }
+    }
+
     render() {
         const {type} = this.state,
             {hours, minutes} = this.props;
 
-        let clockFace;
+        let calcHours = (hours) => {
+            let newHours = String(hours + !type * 12);
+
+            return newHours;
+        };
 
         return (
             <div className="c-datepicker__clock">
@@ -60,59 +73,47 @@ export default class Clock extends Component {
                 </div>
 
                 <div className="c-datepicker__clock__hours">
-                    <div className="c-datepicker__clock__num" data-number={3 + !type * 12}
-                         onClick={this.handleOnClickHours}>{3 + !type * 12}</div>
-                    <div className="c-datepicker__clock__num" data-number={4 + !type * 12}
-                         onClick={this.handleOnClickHours}>{4 + !type * 12}</div>
-                    <div className="c-datepicker__clock__num" data-number={5 + !type * 12}
-                         onClick={this.handleOnClickHours}>{5 + !type * 12}</div>
-                    <div className="c-datepicker__clock__num" data-number={6 + !type * 12}
-                         onClick={this.handleOnClickHours}>{6 + !type * 12}</div>
-                    <div className="c-datepicker__clock__num" data-number={7 + !type * 12}
-                         onClick={this.handleOnClickHours}>{7 + !type * 12}</div>
-                    <div className="c-datepicker__clock__num" data-number={8 + !type * 12}
-                         onClick={this.handleOnClickHours}>{8 + !type * 12}</div>
-                    <div className="c-datepicker__clock__num" data-number={9 + !type * 12}
-                         onClick={this.handleOnClickHours}>{9 + !type * 12}</div>
-                    <div className="c-datepicker__clock__num" data-number={10 + !type * 12}
-                         onClick={this.handleOnClickHours}>{10 + !type * 12}</div>
-                    <div className="c-datepicker__clock__num" data-number={11 + !type * 12}
-                         onClick={this.handleOnClickHours}>{11 + !type * 12}</div>
-                    <div className="c-datepicker__clock__num .c-datepicker__clock__num--active"
-                         data-number={type ? "0" : "24"} onClick={this.handleOnClickHours}>{type ? "0" : "24"}</div>
-                    <div className="c-datepicker__clock__num" data-number={1 + !type * 12}
-                         onClick={this.handleOnClickHours}>{1 + !type * 12}</div>
-                    <div className="c-datepicker__clock__num" data-number={2 + !type * 12}
-                         onClick={this.handleOnClickHours}>{2 + !type * 12}</div>
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickHours}>{calcHours(3)}</div>
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickHours}>{calcHours(4)}</div>
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickHours}>{calcHours(5)}</div>
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickHours}>{calcHours(6)}</div>
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickHours}>{calcHours(7)}</div>
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickHours}>{calcHours(8)}</div>
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickHours}>{calcHours(9)}</div>
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickHours}>{calcHours(10)}</div>
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickHours}>{calcHours(11)}</div>
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickHours}>{calcHours(0)}</div>
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickHours}>{calcHours(1)}</div>
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickHours}>{calcHours(2)}</div>
                     <div className="c-datepicker__clock-hands">
                         <div className="c-datepicker__hour-hand"></div>
                     </div>
                 </div>
 
                 <div className="c-datepicker__clock__minutes">
-                    <div className="c-datepicker__clock__num" data-number="15" onClick={this.handleOnClickMinutes}>15
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickMinutes}>15
                     </div>
-                    <div className="c-datepicker__clock__num" data-number="20" onClick={this.handleOnClickMinutes}>20
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickMinutes}>20
                     </div>
-                    <div className="c-datepicker__clock__num" data-number="25" onClick={this.handleOnClickMinutes}>25
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickMinutes}>25
                     </div>
-                    <div className="c-datepicker__clock__num" data-number="30" onClick={this.handleOnClickMinutes}>30
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickMinutes}>30
                     </div>
-                    <div className="c-datepicker__clock__num" data-number="35" onClick={this.handleOnClickMinutes}>35
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickMinutes}>35
                     </div>
-                    <div className="c-datepicker__clock__num" data-number="40" onClick={this.handleOnClickMinutes}>40
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickMinutes}>40
                     </div>
-                    <div className="c-datepicker__clock__num" data-number="45" onClick={this.handleOnClickMinutes}>45
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickMinutes}>45
                     </div>
-                    <div className="c-datepicker__clock__num" data-number="50" onClick={this.handleOnClickMinutes}>50
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickMinutes}>50
                     </div>
-                    <div className="c-datepicker__clock__num" data-number="55" onClick={this.handleOnClickMinutes}>55
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickMinutes}>55
                     </div>
-                    <div className="c-datepicker__clock__num" data-number="0" onClick={this.handleOnClickMinutes}>0
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickMinutes}>00
                     </div>
-                    <div className="c-datepicker__clock__num" data-number="5" onClick={this.handleOnClickMinutes}>5
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickMinutes}>05
                     </div>
-                    <div className="c-datepicker__clock__num" data-number="10" onClick={this.handleOnClickMinutes}>10
+                    <div className="c-datepicker__clock__num" onClick={this.handleOnClickMinutes}>10
                     </div>
                     <div className="c-datepicker__clock-hands">
                         <div className="c-datepicker__hour-hand"></div>
