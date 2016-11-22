@@ -1,11 +1,11 @@
-/**
- * Created by i.lovenkov on 20.11.16.
- */
-
 "use strict";
 
 import React, {Component, PropTypes}  from 'react';
 import ReactDOM from 'react-dom';
+
+/**
+ * Для удобной работы со временем
+ */
 import moment from 'moment';
 import 'moment/locale/ru';
 
@@ -15,21 +15,28 @@ class App extends Component {
     constructor(props) {
         super(props);
 
+        /**
+         * Подключаем локаль
+         */
         moment.locale('ru');
 
+        /**
+         * Состояние, где будут хранится параметры компонента
+         * По-умолчанию, дата и время берутся из системного времени
+         */
         this.state = {
-            type: true, // false - часы, true - календарь
-            hours: moment().format("HH"),
-            minutes: moment().format("mm"),
-            day: moment().format("DD"),
-            month: moment().format("MMMM"),
-            year: moment().format("YYYY"),
-            weekday: moment().format("dddd")
+            type: true, // активная вкладка: false - часы, true - календарь
+            hours: moment().format("HH"), // часы
+            minutes: moment().format("mm"), // минуты
+            day: moment().format("DD"), // день
+            month: moment().format("MMMM"), // месяц
+            year: moment().format("YYYY"), // год
+            weekday: moment().format("dddd") // день недели
         }
     }
 
     /**
-     * Обработчик изменения календаря/часов
+     * Обработчик изменения активной вкладки (календарь/часы)
      * @param type
      */
     handleChangeType = (type) => {
@@ -45,14 +52,14 @@ class App extends Component {
     handleChangeMonth = (newMonth) => {
         const {month, year} = this.state;
 
-        if (month === "декабрь" && newMonth === "январь") {
+        if (month === "декабрь" && newMonth === "январь") { // для переключения на следующий год
             const newYear = String(parseInt(year, 10) + 1);
 
             this.setState({
                 month: newMonth,
                 year: newYear
             });
-        } else if (month === "январь" && newMonth === "декабрь") {
+        } else if (month === "январь" && newMonth === "декабрь") { // для переключения на предыдущий год
             const newYear = String(parseInt(year, 10) - 1);
 
             this.setState({
@@ -97,14 +104,14 @@ class App extends Component {
     };
 
     /**
-     * Обработчик нажатия на Cancel
+     * Обработчик нажатия на кнопку Cancel
      */
     clickOnCancel = () => {
         // code...
     };
 
     /**
-     * Обработчик нажатия на OK
+     * Обработчик нажатия на кнопку OK
      */
     clickOnOK = () => {
         // code...

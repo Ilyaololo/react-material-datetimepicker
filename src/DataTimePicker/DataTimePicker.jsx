@@ -51,7 +51,7 @@ export default class DataTimePicker extends Component {
         );
 
         return (
-            <div>
+            <div id="date-time-picker">
                 <div className="c-scrim c-scrim--shown"></div>
                 <div className="c-datepicker c-datepicker--open">
                     <input
