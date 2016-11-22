@@ -4,14 +4,14 @@
 
 "use strict";
 
-import React from 'react';
+import React, {Component, PropTypes}  from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
 import 'moment/locale/ru';
 
 import {DataTimePicker} from './src';
 
-class App extends React.Component {
+class App extends Component {
     constructor(props) {
         super(props);
 

@@ -4,11 +4,28 @@
 
 'use strict';
 
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 
 import {Calendar, Clock} from '../';
 
-export default class DataTimePicker extends React.Component {
+export default class DataTimePicker extends Component {
+    static propTypes = {
+        type: React.PropTypes.bool.isRequired,
+        hours: React.PropTypes.string.isRequired,
+        minutes: React.PropTypes.string.isRequired,
+        day: React.PropTypes.string.isRequired,
+        month: React.PropTypes.string.isRequired,
+        year: React.PropTypes.string.isRequired,
+        weekday: React.PropTypes.string.isRequired,
+        handleChangeType: React.PropTypes.func.isRequired,
+        handleChangeMonth: React.PropTypes.func.isRequired,
+        handleChangeDay: React.PropTypes.func.isRequired,
+        handleChangeHours: React.PropTypes.func.isRequired,
+        handleChangeMinutes: React.PropTypes.func.isRequired,
+        clickOnCancel: React.PropTypes.func.isRequired,
+        clickOnOK: React.PropTypes.func.isRequired,
+    };
+
     constructor(props) {
         super(props);
     }
@@ -79,20 +96,3 @@ export default class DataTimePicker extends React.Component {
         );
     }
 }
-
-DataTimePicker.PropTypes = {
-    type: React.PropTypes.bool.isRequired,
-    hours: React.PropTypes.string.isRequired,
-    minutes: React.PropTypes.string.isRequired,
-    day: React.PropTypes.string.isRequired,
-    month: React.PropTypes.string.isRequired,
-    year: React.PropTypes.string.isRequired,
-    weekday: React.PropTypes.string.isRequired,
-    handleChangeType: React.PropTypes.func.isRequired,
-    handleChangeMonth: React.PropTypes.func.isRequired,
-    handleChangeDay: React.PropTypes.func.isRequired,
-    handleChangeHours: React.PropTypes.func.isRequired,
-    handleChangeMinutes: React.PropTypes.func.isRequired,
-    clickOnCancel: React.PropTypes.func.isRequired,
-    clickOnOK: React.PropTypes.func.isRequired,
-};

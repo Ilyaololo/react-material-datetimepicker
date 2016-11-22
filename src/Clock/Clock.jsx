@@ -4,9 +4,16 @@
 
 "use strict";
 
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 
-export default class Clock extends React.Component {
+export default class Clock extends Component {
+    static propTypes = {
+        hours: React.PropTypes.string.isRequired,
+        minutes: React.PropTypes.string.isRequired,
+        handleChangeHours: React.PropTypes.func.isRequired,
+        handleChangeMinutes: React.PropTypes.func.isRequired,
+    };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -53,18 +60,30 @@ export default class Clock extends React.Component {
                 </div>
 
                 <div className="c-datepicker__clock__hours">
-                    <div className="c-datepicker__clock__num" data-number={3 + !type * 12} onClick={this.handleOnClickHours}>{3 + !type * 12}</div>
-                    <div className="c-datepicker__clock__num" data-number={4 + !type * 12} onClick={this.handleOnClickHours}>{4 + !type * 12}</div>
-                    <div className="c-datepicker__clock__num" data-number={5 + !type * 12} onClick={this.handleOnClickHours}>{5 + !type * 12}</div>
-                    <div className="c-datepicker__clock__num" data-number={6 + !type * 12} onClick={this.handleOnClickHours}>{6 + !type * 12}</div>
-                    <div className="c-datepicker__clock__num" data-number={7 + !type * 12} onClick={this.handleOnClickHours}>{7 + !type * 12}</div>
-                    <div className="c-datepicker__clock__num" data-number={8 + !type * 12} onClick={this.handleOnClickHours}>{8 + !type * 12}</div>
-                    <div className="c-datepicker__clock__num" data-number={9 + !type * 12} onClick={this.handleOnClickHours}>{9 + !type * 12}</div>
-                    <div className="c-datepicker__clock__num" data-number={10 + !type * 12} onClick={this.handleOnClickHours}>{10 + !type * 12}</div>
-                    <div className="c-datepicker__clock__num" data-number={11 + !type * 12} onClick={this.handleOnClickHours}>{11 + !type * 12}</div>
-                    <div className="c-datepicker__clock__num .c-datepicker__clock__num--active" data-number={type ? "0" : "24"} onClick={this.handleOnClickHours}>{type ? "0" : "24"}</div>
-                    <div className="c-datepicker__clock__num" data-number={1 + !type * 12} onClick={this.handleOnClickHours}>{1 + !type * 12}</div>
-                    <div className="c-datepicker__clock__num" data-number={2 + !type * 12} onClick={this.handleOnClickHours}>{2 + !type * 12}</div>
+                    <div className="c-datepicker__clock__num" data-number={3 + !type * 12}
+                         onClick={this.handleOnClickHours}>{3 + !type * 12}</div>
+                    <div className="c-datepicker__clock__num" data-number={4 + !type * 12}
+                         onClick={this.handleOnClickHours}>{4 + !type * 12}</div>
+                    <div className="c-datepicker__clock__num" data-number={5 + !type * 12}
+                         onClick={this.handleOnClickHours}>{5 + !type * 12}</div>
+                    <div className="c-datepicker__clock__num" data-number={6 + !type * 12}
+                         onClick={this.handleOnClickHours}>{6 + !type * 12}</div>
+                    <div className="c-datepicker__clock__num" data-number={7 + !type * 12}
+                         onClick={this.handleOnClickHours}>{7 + !type * 12}</div>
+                    <div className="c-datepicker__clock__num" data-number={8 + !type * 12}
+                         onClick={this.handleOnClickHours}>{8 + !type * 12}</div>
+                    <div className="c-datepicker__clock__num" data-number={9 + !type * 12}
+                         onClick={this.handleOnClickHours}>{9 + !type * 12}</div>
+                    <div className="c-datepicker__clock__num" data-number={10 + !type * 12}
+                         onClick={this.handleOnClickHours}>{10 + !type * 12}</div>
+                    <div className="c-datepicker__clock__num" data-number={11 + !type * 12}
+                         onClick={this.handleOnClickHours}>{11 + !type * 12}</div>
+                    <div className="c-datepicker__clock__num .c-datepicker__clock__num--active"
+                         data-number={type ? "0" : "24"} onClick={this.handleOnClickHours}>{type ? "0" : "24"}</div>
+                    <div className="c-datepicker__clock__num" data-number={1 + !type * 12}
+                         onClick={this.handleOnClickHours}>{1 + !type * 12}</div>
+                    <div className="c-datepicker__clock__num" data-number={2 + !type * 12}
+                         onClick={this.handleOnClickHours}>{2 + !type * 12}</div>
                     <div className="c-datepicker__clock-hands">
                         <div className="c-datepicker__hour-hand"></div>
                     </div>
@@ -103,10 +122,3 @@ export default class Clock extends React.Component {
         );
     }
 }
-
-Clock.propTypes = {
-    hours: React.PropTypes.string.isRequired,
-    minutes: React.PropTypes.string.isRequired,
-    handleChangeHours: React.PropTypes.func.isRequired,
-    handleChangeMinutes: React.PropTypes.func.isRequired,
-};

@@ -4,9 +4,17 @@
 
 "use strict";
 
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
+import moment from 'moment';
 
-export default class Calendar extends React.Component {
+import {Week} from './Week';
+
+export default class Calendar extends Component {
+    static propTypes = {
+        month: React.PropTypes.string.isRequired,
+        year: React.PropTypes.string.isRequired
+    };
+
     constructor(props) {
         super(props);
     }
@@ -14,8 +22,35 @@ export default class Calendar extends React.Component {
     render() {
         const {month, year} = this.props;
 
+        let result = [],
+            numberWeek = moment().set({'date': 1, 'month': month, 'year': year}).isoWeek();
+
+        if (month === "январь") {
+            for (let i = 0; i < 6; ++i) { // отображаем 6 недель календаря
+                result.push(
+                    <Week
+                        key={"Week_" + i}
+                        week={i}
+                        month={month}
+                        year={year}
+                    />
+                );
+            }
+        } else {
+            for (let i = numberWeek; i < numberWeek + 6; ++i) { // отображаем 6 недель календаря
+                result.push(
+                    <Week
+                        key={"Week_" + i}
+                        week={i}
+                        month={month}
+                        year={year}
+                    />
+                );
+            }
+        }
+
         return (
-            <div className="c-datepicker__calendar" data-rome-id="0">
+            <div className="c-datepicker__calendar">
                 <div className="c-datepicker__calendar" id="inline-block">
                     <div className="c-datepicker__date">
                         <div className="c-datepicker__month">
@@ -34,52 +69,8 @@ export default class Calendar extends React.Component {
                                     <th className="c-datepicker__day-head">Вс</th>
                                 </tr>
                                 </thead>
-                                <tbody className="c-datepicker__days-body" data-rome-offset="0">
-                                <tr className="c-datepicker__days-row">
-                                    <td className="c-datepicker__day-body rd-day-prev-month">30</td>
-                                    <td className="c-datepicker__day-body rd-day-prev-month">31</td>
-                                    <td className="c-datepicker__day-body">01</td>
-                                    <td className="c-datepicker__day-body">02</td>
-                                    <td className="c-datepicker__day-body">03</td>
-                                    <td className="c-datepicker__day-body">04</td>
-                                    <td className="c-datepicker__day-body">05</td>
-                                </tr>
-                                <tr className="c-datepicker__days-row">
-                                    <td className="c-datepicker__day-body">06</td>
-                                    <td className="c-datepicker__day-body">07</td>
-                                    <td className="c-datepicker__day-body">08</td>
-                                    <td className="c-datepicker__day-body">09</td>
-                                    <td className="c-datepicker__day-body">10</td>
-                                    <td className="c-datepicker__day-body">11</td>
-                                    <td className="c-datepicker__day-body">12</td>
-                                </tr>
-                                <tr className="c-datepicker__days-row">
-                                    <td className="c-datepicker__day-body">13</td>
-                                    <td className="c-datepicker__day-body">14</td>
-                                    <td className="c-datepicker__day-body">15</td>
-                                    <td className="c-datepicker__day-body">16</td>
-                                    <td className="c-datepicker__day-body">17</td>
-                                    <td className="c-datepicker__day-body">18</td>
-                                    <td className="c-datepicker__day-body">19</td>
-                                </tr>
-                                <tr className="c-datepicker__days-row">
-                                    <td className="c-datepicker__day-body c-datepicker__day--selected">20</td>
-                                    <td className="c-datepicker__day-body">21</td>
-                                    <td className="c-datepicker__day-body">22</td>
-                                    <td className="c-datepicker__day-body">23</td>
-                                    <td className="c-datepicker__day-body">24</td>
-                                    <td className="c-datepicker__day-body">25</td>
-                                    <td className="c-datepicker__day-body">26</td>
-                                </tr>
-                                <tr className="c-datepicker__days-row">
-                                    <td className="c-datepicker__day-body">27</td>
-                                    <td className="c-datepicker__day-body">28</td>
-                                    <td className="c-datepicker__day-body">29</td>
-                                    <td className="c-datepicker__day-body">30</td>
-                                    <td className="c-datepicker__day-body rd-day-next-month">01</td>
-                                    <td className="c-datepicker__day-body rd-day-next-month">02</td>
-                                    <td className="c-datepicker__day-body rd-day-next-month">03</td>
-                                </tr>
+                                <tbody className="c-datepicker__days-body">
+                                {result}
                                 </tbody>
                             </table>
                         </div>
@@ -89,8 +80,3 @@ export default class Calendar extends React.Component {
         );
     }
 }
-
-Calendar.propTypes = {
-    month: React.PropTypes.string.isRequired,
-    year: React.PropTypes.string.isRequired
-};
