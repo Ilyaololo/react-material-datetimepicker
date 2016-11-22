@@ -12,21 +12,42 @@ import {Week} from './Week';
 export default class Calendar extends Component {
     static propTypes = {
         month: React.PropTypes.string.isRequired,
-        year: React.PropTypes.string.isRequired
+        year: React.PropTypes.string.isRequired,
+        handleChangeMonth: PropTypes.func.isRequired,
+        handleChangeDay: PropTypes.func.isRequired,
     };
 
     constructor(props) {
         super(props);
     }
 
+    handleClickOnNextMonth = () => {
+        const {handleChangeMonth, month} = this.props,
+            newMonthID = parseInt(moment().set({'month': month}).month(), 10) + 1;
+
+        handleChangeMonth(moment().month(newMonthID).format('MMMM'));
+    };
+
+    handleClickOnPrevMonth = () => {
+        const {handleChangeMonth, month} = this.props,
+            newMonthID = parseInt(moment().set({'month': month}).month(), 10) - 1;
+
+        handleChangeMonth(moment().month(newMonthID).format('MMMM'));
+    };
+
+    handleClickOnDay = () => {
+        const {handleChangeDay} = this.props;
+
+    };
+
     render() {
         const {month, year} = this.props;
 
         let result = [],
-            numberWeek = moment().set({'date': 1, 'month': month, 'year': year}).isoWeek();
+            numberWeek = moment().set({'date': 1, 'month': month, 'year': year}).week();
 
         if (month === "январь") {
-            for (let i = 0; i < 6; ++i) { // отображаем 6 недель календаря
+            for (let i = 1; i < 7; ++i) { // отображаем 6 недель календаря
                 result.push(
                     <Week
                         key={"Week_" + i}
@@ -54,8 +75,8 @@ export default class Calendar extends Component {
                 <div className="c-datepicker__calendar" id="inline-block">
                     <div className="c-datepicker__date">
                         <div className="c-datepicker__month">
-                            <button className="c-datepicker__back" type="button"/>
-                            <button className="c-datepicker__next" type="button"/>
+                            <button className="c-datepicker__back" type="button" onClick={this.handleClickOnPrevMonth}/>
+                            <button className="c-datepicker__next" type="button" onClick={this.handleClickOnNextMonth}/>
                             <div className="rd-month-label">{month} {year}</div>
                             <table className="c-datepicker__days">
                                 <thead className="c-datepicker__days-head">

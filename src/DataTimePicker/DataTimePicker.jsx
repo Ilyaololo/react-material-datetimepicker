@@ -37,6 +37,8 @@ export default class DataTimePicker extends Component {
             <Calendar
                 month={month}
                 year={year}
+                handleChangeMonth={handleChangeMonth}
+                handleChangeDay={handleChangeDay}
             />
         ) : (
             <Clock

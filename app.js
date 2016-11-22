@@ -40,12 +40,30 @@ class App extends Component {
 
     /**
      * Обработчик изменения месяца
-     * @param month
+     * @param newMonth
      */
-    handleChangeMonth = (month) => {
-        this.setState({
-            month: month
-        });
+    handleChangeMonth = (newMonth) => {
+        const {month, year} = this.state;
+
+        if (month === "декабрь" && newMonth === "январь") {
+            const newYear = String(parseInt(year, 10) + 1);
+
+            this.setState({
+                month: newMonth,
+                year: newYear
+            });
+        } else if (month === "январь" && newMonth === "декабрь") {
+            const newYear = String(parseInt(year, 10) - 1);
+
+            this.setState({
+                month: newMonth,
+                year: newYear
+            });
+        } else {
+            this.setState({
+                month: newMonth
+            });
+        }
     };
 
     /**

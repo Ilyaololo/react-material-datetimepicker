@@ -19,10 +19,8 @@ export default class Week extends Component {
     render() {
         const {month, year, week} = this.props;
 
-        let currentWeek = moment().set({'week': week + 1, 'year': year, 'weekday': 0}),
+        let currentWeek = moment().set({'week': week, 'year': year}),
             days = [];
-
-        // console.log(week);
 
         for (let i = 1; i <= 7; ++i) { // цикл по дням недели
             days.push(
