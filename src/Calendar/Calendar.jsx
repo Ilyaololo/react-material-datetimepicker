@@ -11,6 +11,7 @@ import {Week} from './Week';
 
 export default class Calendar extends Component {
     static propTypes = {
+        day: PropTypes.string.isRequired,
         month: React.PropTypes.string.isRequired,
         year: React.PropTypes.string.isRequired,
         handleChangeMonth: PropTypes.func.isRequired,
@@ -35,13 +36,8 @@ export default class Calendar extends Component {
         handleChangeMonth(moment().month(newMonthID).format('MMMM'));
     };
 
-    handleClickOnDay = () => {
-        const {handleChangeDay} = this.props;
-
-    };
-
     render() {
-        const {month, year} = this.props;
+        const {day, month, year, handleChangeDay} = this.props;
 
         let result = [],
             numberWeek = moment().set({'date': 1, 'month': month, 'year': year}).week();
@@ -51,9 +47,11 @@ export default class Calendar extends Component {
                 result.push(
                     <Week
                         key={"Week_" + i}
+                        day={day}
                         week={i}
                         month={month}
                         year={year}
+                        handleChangeDay={handleChangeDay}
                     />
                 );
             }
@@ -62,9 +60,11 @@ export default class Calendar extends Component {
                 result.push(
                     <Week
                         key={"Week_" + i}
+                        day={day}
                         week={i}
                         month={month}
                         year={year}
+                        handleChangeDay={handleChangeDay}
                     />
                 );
             }

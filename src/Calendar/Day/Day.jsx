@@ -9,7 +9,9 @@ import React, {Component, PropTypes} from 'react';
 export default class Day extends Component {
     static propTypes = {
         day: PropTypes.string.isRequired,
+        selectedDay: PropTypes.bool.isRequired,
         active: PropTypes.bool.isRequired,
+        handleChangeDay: PropTypes.func.isRequired,
     };
 
     constructor(props) {
@@ -17,11 +19,16 @@ export default class Day extends Component {
         this.state = {};
     }
 
+    handleClickOnDay = (e) => {
+        const {handleChangeDay} = this.props;
+        handleChangeDay(e.target.innerText);
+    };
+
     render() {
-        const {day, active} = this.props;
+        const {day, active, selectedDay} = this.props;
 
         return (
-            <td className={active ? "c-datepicker__day-body" : "c-datepicker__day-body rd-day-prev-month"}>{day}</td>
+            <td className={active ? (selectedDay ? "c-datepicker__day-body c-datepicker__day--selected" : "c-datepicker__day-body") : "c-datepicker__day-body rd-day-prev-month"} onClick={this.handleClickOnDay}>{day}</td>
         );
     }
 }

@@ -11,13 +11,15 @@ import {Day} from '../Day';
 
 export default class Week extends Component {
     static propTypes = {
+        day: PropTypes.string.isRequired,
         month: PropTypes.string.isRequired,
         year: PropTypes.string.isRequired,
         week: PropTypes.number.isRequired,
+        handleChangeDay: PropTypes.func.isRequired,
     };
 
     render() {
-        const {month, year, week} = this.props;
+        const {day, month, year, week, handleChangeDay} = this.props;
 
         let currentWeek = moment().set({'week': week, 'year': year}),
             days = [];
@@ -27,7 +29,9 @@ export default class Week extends Component {
                 <Day
                     key={"Day_" + i}
                     day={currentWeek.isoWeekday(i).format("DD")}
+                    selectedDay={day === currentWeek.isoWeekday(i).format("DD")}
                     active={currentWeek.isoWeekday(i).format('MMMM') === month}
+                    handleChangeDay={handleChangeDay}
                 />
             );
         }
