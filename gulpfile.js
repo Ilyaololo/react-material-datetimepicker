@@ -31,7 +31,7 @@ gulp.task('scripts', () => {
             .pipe(buffer())
             .pipe(sourcemaps.init({loadMaps: true}))
             .pipe(sourcemaps.write('./'))
-            .pipe(gulp.dest('./build/js/'));
+            .pipe(gulp.dest('./build/'));
     };
     cb.on('update', rebundle);
     rebundle();
@@ -44,5 +44,5 @@ gulp.task('convert-sass', function () {
         .pipe(myth())
         .pipe(concat("main.css"))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('build/css/'));
+        .pipe(gulp.dest('build/'));
 });

@@ -1,1 +1,1 @@
-export {DataTimePicker} from './src';
+export {DataTimePicker as default} from './src';

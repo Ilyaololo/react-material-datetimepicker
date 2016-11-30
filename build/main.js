@@ -26168,7 +26168,7 @@ var DataTimePicker = (_temp = _class = function (_Component) {
                         _react2.default.createElement(
                             'a',
                             { className: 'c-btn c-btn--flat js-cancel', onClick: clickOnCancel },
-                            'Cancel'
+                            '\u041D\u0430\u0437\u0430\u0434'
                         ),
                         _react2.default.createElement(
                             'a',

@@ -91,7 +91,7 @@ export default class DataTimePicker extends Component {
                     {body}
 
                     <div className="modal-btns">
-                        <a className="c-btn c-btn--flat js-cancel" onClick={clickOnCancel}>Cancel</a>
+                        <a className="c-btn c-btn--flat js-cancel" onClick={clickOnCancel}>Назад</a>
                         <a className="c-btn c-btn--flat js-ok" onClick={clickOnOK}>OK</a>
                     </div>
                 </div>
