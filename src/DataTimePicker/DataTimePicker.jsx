@@ -149,15 +149,10 @@ export default class DataTimePicker extends Component {
      * @private
      */
     _checkProperties = (prop) => {
-        let newState = this.state,
-            result;
+        let result;
 
         if (this.props.hasOwnProperty(prop)) {
-            newState[prop] = this.props[prop];
-
-            this.setState(newState);
-
-            result = this.state[prop];
+            result = this.props[prop];
         } else if (this.state.hasOwnProperty(prop)) {
             result = this.state[prop];
         }
@@ -183,10 +178,16 @@ export default class DataTimePicker extends Component {
         return result;
     };
 
-    componentDidMount() {
-        const {_checkProperties} = this;
-
-        const day = _checkProperties('day'),
+    render() {
+        const {_checkFunc, _checkProperties} = this,
+            clickOnCancel = _checkFunc('clickOnCancel'),
+            clickOnOK = _checkFunc('clickOnOK'),
+            day = _checkProperties('day'),
+            handleChangeDay = _checkFunc('handleChangeDay'),
+            handleChangeHours = _checkFunc('handleChangeHours'),
+            handleChangeMinutes = _checkFunc('handleChangeMinutes'),
+            handleChangeMonth = _checkFunc('handleChangeMonth'),
+            handleChangeType = _checkFunc('handleChangeType'),
             hours = _checkProperties('hours'),
             minutes = _checkProperties('minutes'),
             month = _checkProperties('month'),
@@ -194,18 +195,6 @@ export default class DataTimePicker extends Component {
             type = _checkProperties('type'),
             weekday = _checkProperties('weekday'),
             year = _checkProperties('year');
-    }
-
-    render() {
-        const {_checkFunc} = this,
-            {day, hours, minutes, month, show, type, weekday, year} = this.state,
-            clickOnCancel = _checkFunc('clickOnCancel'),
-            clickOnOK = _checkFunc('clickOnOK'),
-            handleChangeDay = _checkFunc('handleChangeDay'),
-            handleChangeHours = _checkFunc('handleChangeHours'),
-            handleChangeMinutes = _checkFunc('handleChangeMinutes'),
-            handleChangeMonth = _checkFunc('handleChangeMonth'),
-            handleChangeType = _checkFunc('handleChangeType');
 
         let body = type ? (
             <Calendar
