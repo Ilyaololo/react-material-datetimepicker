@@ -52,9 +52,10 @@ gulp.task('convert-sass', function () {
         .pipe(gulp.dest('build/'));
 });
 
-gulp.task('js', function(){
+gulp.task('js', function () {
     let cb = browserify({
         entries: ['./src/DataTimePicker/DataTimePicker.jsx'], // Only need initial file, browserify finds the deps
+        // entries: ['./app.js'],
         debug: !argv.prod, // Gives us sourcemapping
         cache: {}, packageCache: {}, fullPaths: true,
         extensions: ['.jsx', '.js']

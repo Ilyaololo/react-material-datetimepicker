@@ -4,10 +4,10 @@
 
 "use strict";
 
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
 
-import {Day} from '../Day';
+import { Day } from '../Day';
 
 export default class Week extends Component {
     static propTypes = {
@@ -17,6 +17,10 @@ export default class Week extends Component {
         week: PropTypes.number.isRequired,
         handleChangeDay: PropTypes.func.isRequired,
     };
+
+    constructor(props) {
+        super(props);
+    }
 
     render() {
         const {day, month, year, week, handleChangeDay} = this.props;

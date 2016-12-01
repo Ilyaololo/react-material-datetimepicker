@@ -1,6 +1,6 @@
 "use strict";
 
-import React, {Component, PropTypes}  from 'react';
+import React, { Component, PropTypes }  from 'react';
 import ReactDOM from 'react-dom';
 
 /**
@@ -9,7 +9,7 @@ import ReactDOM from 'react-dom';
 import moment from 'moment';
 import 'moment/locale/ru';
 
-import {DataTimePicker} from './src';
+import { DataTimePicker } from './src';
 
 class App extends Component {
     constructor(props) {
@@ -25,13 +25,14 @@ class App extends Component {
          * По-умолчанию, дата и время берутся из системного времени
          */
         this.state = {
-            type: true, // активная вкладка: false - часы, true - календарь
+            day: moment().format("DD"), // день
             hours: moment().format("HH"), // часы
             minutes: moment().format("mm"), // минуты
-            day: moment().format("DD"), // день
             month: moment().format("MMMM"), // месяц
+            show: true,
+            type: true, // активная вкладка: false - часы, true - календарь
+            weekday: moment().format("dddd"), // день недели
             year: moment().format("YYYY"), // год
-            weekday: moment().format("dddd") // день недели
         }
     }
 
@@ -118,24 +119,25 @@ class App extends Component {
     };
 
     render() {
-        const {type, hours, minutes, day, month, year, weekday} = this.state;
+        const {type, hours, minutes, day, month, show, year, weekday} = this.state;
 
         return (
             <DataTimePicker
-                type={type}
-                hours={hours}
-                minutes={minutes}
+                clickOnCancel={this.clickOnCancel}
+                clickOnOK={this.clickOnOK}
                 day={day}
-                month={month}
-                year={year}
-                weekday={weekday}
-                handleChangeType={this.handleChangeType}
-                handleChangeMonth={this.handleChangeMonth}
                 handleChangeDay={this.handleChangeDay}
                 handleChangeHours={this.handleChangeHours}
                 handleChangeMinutes={this.handleChangeMinutes}
-                clickOnCancel={this.clickOnCancel}
-                clickOnOK={this.clickOnOK}
+                handleChangeMonth={this.handleChangeMonth}
+                handleChangeType={this.handleChangeType}
+                hours={hours}
+                minutes={minutes}
+                month={month}
+                show={show}
+                type={type}
+                weekday={weekday}
+                year={year}
             />
         );
     }

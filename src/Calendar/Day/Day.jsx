@@ -4,7 +4,7 @@
 
 "use strict";
 
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 
 export default class Day extends Component {
     static propTypes = {
@@ -16,7 +16,6 @@ export default class Day extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
     }
 
     handleClickOnDay = (e) => {
@@ -28,7 +27,8 @@ export default class Day extends Component {
         const {day, active, selectedDay} = this.props;
 
         return (
-            <td className={active ? (selectedDay ? "c-datepicker__day-body c-datepicker__day--selected" : "c-datepicker__day-body") : "c-datepicker__day-body rd-day-prev-month"} onClick={this.handleClickOnDay}>{day}</td>
+            <td className={active ? (selectedDay ? "c-datepicker__day-body c-datepicker__day--selected" : "c-datepicker__day-body") : "c-datepicker__day-body rd-day-prev-month"}
+                onClick={this.handleClickOnDay}>{day}</td>
         );
     }
 }

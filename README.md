@@ -24,7 +24,7 @@ import DataTimePicker from 'react-material-datetimepicker';
 Также, не забудьте подключить файл со стилями
 
 ```html
-<link rel="stylesheet" href="node_modules/react-material-datetimepicker/build/main.css">
+<link rel="stylesheet" href="node_modules/react-material-datetimepicker/build/react-material-datetimepicker.css">
 ```
 
 ## API
@@ -40,6 +40,8 @@ import DataTimePicker from 'react-material-datetimepicker';
 `day` (string) - день
 
 `month` (string) - месяц
+
+`show` (bool) - показывать комонент или скрыть его
 
 `year` (string) - год
 
@@ -94,6 +96,7 @@ class App extends Component {
             hours: moment().format("HH"), // часы
             minutes: moment().format("mm"), // минуты
             day: moment().format("DD"), // день
+            show: true, // показать/скрыть компонент
             month: moment().format("MMMM"), // месяц
             year: moment().format("YYYY"), // год
             weekday: moment().format("dddd") // день недели
@@ -183,7 +186,7 @@ class App extends Component {
     };
 
     render() {
-        const {type, hours, minutes, day, month, year, weekday} = this.state;
+        const {type, hours, minutes, day, month, show, year, weekday} = this.state;
 
         return (
             <DataTimePicker
@@ -192,6 +195,7 @@ class App extends Component {
                 minutes={minutes}
                 day={day}
                 month={month}
+                show={show}
                 year={year}
                 weekday={weekday}
                 handleChangeType={this.handleChangeType}

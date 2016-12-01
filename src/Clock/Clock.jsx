@@ -4,7 +4,7 @@
 
 "use strict";
 
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 
 export default class Clock extends Component {
     static propTypes = {

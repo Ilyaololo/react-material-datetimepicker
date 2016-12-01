@@ -1,3 +1,3 @@
-export {Calendar} from './Calendar';
-export {Clock} from './Clock';
-export {DataTimePicker} from './DataTimePicker';
+export { Calendar } from './Calendar';
+export { Clock } from './Clock';
+export { DataTimePicker } from './DataTimePicker';

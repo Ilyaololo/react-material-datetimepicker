@@ -1,11 +1,18 @@
 {
   "name": "react-material-datetime-picker",
-  "version": "0.0.13",
-  "description": "Component DateTime Picker for React.js.",
+  "version": "0.0.2",
+  "description": "Component DateTimePicker for React.js.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "keywords": [
+    "react",
+    "material",
+    "component",
+    "date",
+    "time",
+    "picker",
+    "datetime",
+    "datetimepicker"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Ilyaololo/react-material-datetimepicker.git"

@@ -4,10 +4,10 @@
 
 "use strict";
 
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
 
-import {Week} from './Week';
+import { Week } from './Week';
 
 export default class Calendar extends Component {
     static propTypes = {
