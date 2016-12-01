@@ -24,7 +24,7 @@ import DataTimePicker from 'react-material-datetimepicker';
 Также, не забудьте подключить файл со стилями
 
 ```html
-<link rel="stylesheet" href="node_modules/react-material-datetimepicker/build/css/main.css">
+<link rel="stylesheet" href="node_modules/react-material-datetimepicker/build/main.css">
 ```
 
 ## API
