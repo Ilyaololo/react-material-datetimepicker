@@ -18,13 +18,13 @@ npm install --save react-material-datetimepicker
 Для подключения компонента нужно:
 
 ```javascript
-import DataTimePicker from 'react-material-datetimepicker';
+import DataTimePicker from 'react-material-datetime-picker';
 ```
 
 Также, не забудьте подключить файл со стилями
 
 ```html
-<link rel="stylesheet" href="node_modules/react-material-datetimepicker/build/react-material-datetimepicker.css">
+<link rel="stylesheet" href="node_modules/react-material-datetimepicker/build/react-material-datetime-picker.css">
 ```
 
 ## API
@@ -67,7 +67,7 @@ import DataTimePicker from 'react-material-datetimepicker';
 ```javascript
 "use strict";
 
-import React, {Component, PropTypes}  from 'react';
+import React, { Component, PropTypes }  from 'react';
 import ReactDOM from 'react-dom';
 
 /**
