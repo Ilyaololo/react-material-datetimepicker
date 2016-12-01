@@ -1,18 +1,23 @@
-let gulp = require('gulp'),
-    browserify = require('browserify'),
-    source = require('vinyl-source-stream'),
-    buffer = require('vinyl-buffer'),
-    watchify = require('watchify'),
+let argv = require('yargs').argv,
     babelify = require('babelify'),
-    sourcemaps = require('gulp-sourcemaps'),
-    myth = require('gulp-myth'),
+    browserify = require('browserify'),
+    buffer = require('vinyl-buffer'),
     concat = require('gulp-concat'),
+    gulp = require('gulp'),
+    gulpif = require('gulp-if'),
     less = require('gulp-less'),
-    sass = require('gulp-sass');
+    myth = require('gulp-myth'),
+    sass = require('gulp-sass'),
+    source = require('vinyl-source-stream'),
+    sourcemaps = require('gulp-sourcemaps'),
+    streamify = require('gulp-streamify'),
+    uglify = require('gulp-uglify'),
+    watchify = require('watchify');
+
 
 gulp.task('scripts', () => {
     let cb = browserify({
-        entries: ['./app.js'],
+        entries: ['./src/DataTimePicker/DataTimePicker.jsx'],
         debug: true,
         cache: {},
         packageCache: {},
@@ -46,3 +51,20 @@ gulp.task('convert-sass', function () {
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('build/'));
 });
+
+gulp.task('js', function(){
+    let cb = browserify({
+        entries: ['./src/DataTimePicker/DataTimePicker.jsx'], // Only need initial file, browserify finds the deps
+        debug: !argv.prod, // Gives us sourcemapping
+        cache: {}, packageCache: {}, fullPaths: true,
+        extensions: ['.jsx', '.js']
+    });
+    process.env.NODE_ENV = argv.prod ? "production" : "development";
+    cb.transform(babelify.configure());
+    cb.bundle()
+        .pipe(source('main.js'))
+        .pipe(gulpif(argv.prod, streamify(uglify())))
+        .pipe(gulp.dest('./build/'));
+});
+
+gulp.task('default', ['convert-sass', 'js']);

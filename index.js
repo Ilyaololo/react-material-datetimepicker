@@ -1,1 +1,2 @@
-export {DataTimePicker as default} from './src';
+import {DataTimePicker} from './src';
+export default DataTimePicker;
