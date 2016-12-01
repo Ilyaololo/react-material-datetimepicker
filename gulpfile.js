@@ -47,7 +47,7 @@ gulp.task('convert-sass', function () {
         .pipe(sourcemaps.init())
         .pipe(sass())
         .pipe(myth())
-        .pipe(concat("main.css"))
+        .pipe(concat("react-material-datetime-picker.css"))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('build/'));
 });
@@ -62,7 +62,7 @@ gulp.task('js', function(){
     process.env.NODE_ENV = argv.prod ? "production" : "development";
     cb.transform(babelify.configure());
     cb.bundle()
-        .pipe(source('main.js'))
+        .pipe(source('react-material-datetime-picker.js'))
         .pipe(gulpif(argv.prod, streamify(uglify())))
         .pipe(gulp.dest('./build/'));
 });

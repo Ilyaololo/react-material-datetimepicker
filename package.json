@@ -1,6 +1,6 @@
 {
   "name": "react-material-datetime-picker",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Component DateTime Picker for React.js.",
   "main": "index.js",
   "scripts": {
