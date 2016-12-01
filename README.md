@@ -29,23 +29,25 @@ import DataTimePicker from 'react-material-datetime-picker';
 
 ## API
 
+По-умолчанию используются внутренние свойства и обработчики. Но при желании, в компонент можно передать свои свойства.
+
 ### Параметры
 
-`type` (bool) - активная вкладка: календарь/часы
+`type` (*bool*) - активная вкладка: календарь/часы. **По-умолчанию**: true
 
-`hours` (string) - часы
+`hours` (*string*) - часы. **По-умолчанию**, текущий час (по времени, установленному в ОС)
 
-`minutes` (string) - минуты
+`minutes` (*string*) - минуты. **По-умолчанию**, текущая минута (по времени установленному в ОС)
 
-`day` (string) - день
+`day` (*string*) - день. **По-умолчанию**, текущий день (по времени установленному в ОС)
 
-`month` (string) - месяц
+`month` (*string*) - месяц. **По-умолчанию**, текущий месяц (по времени установленному в ОС)
 
-`show` (bool) - показывать комонент или скрыть его
+`show` (*bool*) - показывать комонент или скрыть его. **По-умолчанию**, true
 
-`year` (string) - год
+`year` (*string*) - год. **По-умолчанию**, текущий год (по времени установленному в ОС)
 
-`weekday` (string) - день недели
+`weekday` (*string*) - день недели. **По-умолчанию**, текущий день недели (по времени установленному в ОС)
 
 ### Обработчики
 
@@ -63,8 +65,42 @@ import DataTimePicker from 'react-material-datetime-picker';
 
 `clickOnOK` - Обработчик нажатия на кнопку OK
 
-## Пример использования 
+## Простой пример использования (проще некуда :) )
+
 ```javascript
+"use strict";
+
+import React, { Component, PropTypes }  from 'react';
+import ReactDOM from 'react-dom';
+
+import { DataTimePicker } from './src';
+
+class App extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <DataTimePicker />
+        );
+    }
+}
+
+ReactDOM.render(<App />, document.getElementById('app'));
+
+```
+
+## Пример использования с передачей своих свойств и обработчиков
+```javascript
+/**
+* ==========================================================
+*       Данный код показывает внутренние свойства и 
+*           обработчики, которые по-умолчанию,
+*           использует компонент.
+* ==========================================================
+*/
+
 "use strict";
 
 import React, { Component, PropTypes }  from 'react';
@@ -175,14 +211,22 @@ class App extends Component {
      * Обработчик нажатия на кнопку Cancel
      */
     clickOnCancel = () => {
-        // code... 
+        const {show} = this.state;
+        
+        this.setState({
+            show: !show,
+        });
     };
 
     /**
      * Обработчик нажатия на кнопку OK
      */
     clickOnOK = () => {
-        // code...
+        const {show} = this.state;
+        
+        this.setState({
+            show: !show,
+        });
     };
 
     render() {

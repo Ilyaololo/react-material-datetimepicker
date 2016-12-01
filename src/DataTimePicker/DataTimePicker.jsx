@@ -6,33 +6,178 @@
 
 import React, { Component, PropTypes } from 'react';
 
+import moment from 'moment';
+import 'moment/locale/ru';
+
 import { Calendar, Clock } from '../';
 
 export default class DataTimePicker extends Component {
     static propTypes = {
-        clickOnCancel: React.PropTypes.func.isRequired,
-        clickOnOK: React.PropTypes.func.isRequired,
-        day: React.PropTypes.string.isRequired,
-        handleChangeDay: React.PropTypes.func.isRequired,
-        handleChangeHours: React.PropTypes.func.isRequired,
-        handleChangeMinutes: React.PropTypes.func.isRequired,
-        handleChangeMonth: React.PropTypes.func.isRequired,
-        handleChangeType: React.PropTypes.func.isRequired,
-        hours: React.PropTypes.string.isRequired,
-        minutes: React.PropTypes.string.isRequired,
-        month: React.PropTypes.string.isRequired,
-        show: PropTypes.bool.isRequired,
-        type: React.PropTypes.bool.isRequired,
-        weekday: React.PropTypes.string.isRequired,
-        year: React.PropTypes.string.isRequired,
+        clickOnCancel: React.PropTypes.func,
+        clickOnOK: React.PropTypes.func,
+        day: React.PropTypes.string,
+        handleChangeDay: React.PropTypes.func,
+        handleChangeHours: React.PropTypes.func,
+        handleChangeMinutes: React.PropTypes.func,
+        handleChangeMonth: React.PropTypes.func,
+        handleChangeType: React.PropTypes.func,
+        hours: React.PropTypes.string,
+        minutes: React.PropTypes.string,
+        month: React.PropTypes.string,
+        show: PropTypes.bool,
+        type: React.PropTypes.bool,
+        weekday: React.PropTypes.string,
+        year: React.PropTypes.string,
     };
 
     constructor(props) {
         super(props);
+
+        /**
+         * Подключаем локаль
+         */
+        moment.locale('ru');
+
+        /**
+         * Состояние, где будут хранится параметры компонента
+         * По-умолчанию, дата и время берутся из системного времени
+         */
+        this.state = {
+            day: moment().format("DD"), // день
+            hours: moment().format("HH"), // часы
+            minutes: moment().format("mm"), // минуты
+            month: moment().format("MMMM"), // месяц
+            show: true,
+            type: true, // активная вкладка: false - часы, true - календарь
+            weekday: moment().format("dddd"), // день недели
+            year: moment().format("YYYY"), // год
+        }
     }
 
+    /**
+     * Обработчик изменения активной вкладки (календарь/часы)
+     * @param type
+     */
+    handleChangeType = (type) => {
+        this.setState({
+            type: type
+        });
+    };
+
+    /**
+     * Обработчик изменения месяца
+     * @param newMonth
+     */
+    handleChangeMonth = (newMonth) => {
+        const {month, year} = this.state;
+
+        if (month === "декабрь" && newMonth === "январь") { // для переключения на следующий год
+            const newYear = String(parseInt(year, 10) + 1);
+
+            this.setState({
+                month: newMonth,
+                year: newYear
+            });
+        } else if (month === "январь" && newMonth === "декабрь") { // для переключения на предыдущий год
+            const newYear = String(parseInt(year, 10) - 1);
+
+            this.setState({
+                month: newMonth,
+                year: newYear
+            });
+        } else {
+            this.setState({
+                month: newMonth
+            });
+        }
+    };
+
+    /**
+     * Обработчик изменения дня
+     * @param day
+     */
+    handleChangeDay = (day) => {
+        this.setState({
+            day: day
+        });
+    };
+
+    /**
+     * Обработчик изменения часов
+     * @param hours
+     */
+    handleChangeHours = (hours) => {
+        this.setState({
+            hours: moment(String(hours), "HH").format("HH")
+        });
+    };
+
+    /**
+     * Обработчик изменения минут
+     * @param minutes
+     */
+    handleChangeMinutes = (minutes) => {
+        this.setState({
+            minutes: moment(String(minutes), "mm").format("mm")
+        });
+    };
+
+    /**
+     * Обработчик нажатия на кнопку Cancel
+     */
+    clickOnCancel = () => {
+        const {show} = this.state;
+        this.setState({
+            show: !show,
+        })
+    };
+
+    /**
+     * Обработчик нажатия на кнопку OK
+     */
+    clickOnOK = () => {
+        const {show} = this.state;
+        this.setState({
+            show: !show,
+        })
+    };
+
+    /**
+     * Проверка наличия свойства в this.props и this.state
+     * @param prop
+     * @returns {*}
+     * @private
+     */
+    _checkProperties = (prop) => {
+        let result;
+
+        if (this.props.hasOwnProperty(prop)) {
+            result = this.props[prop];
+        } else if (this.state.hasOwnProperty(prop)) {
+            result = this.state[prop];
+        }
+
+        return result;
+    };
+
     render() {
-        const {clickOnCancel, clickOnOK, day, handleChangeDay, handleChangeHours, handleChangeMinutes, handleChangeMonth, handleChangeType, hours, minutes, month, show, type, weekday, year} = this.props;
+        const {_checkProperties} = this;
+
+        const clickOnCancel = _checkProperties('clickOnCancel'),
+            clickOnOK = _checkProperties('clickOnOK'),
+            day = _checkProperties('day'),
+            handleChangeDay = _checkProperties('handleChangeDay'),
+            handleChangeHours = _checkProperties('handleChangeHours'),
+            handleChangeMinutes = _checkProperties('handleChangeMinutes'),
+            handleChangeMonth = _checkProperties('handleChangeMonth'),
+            handleChangeType = _checkProperties('handleChangeType'),
+            hours = _checkProperties('hours'),
+            minutes = _checkProperties('minutes'),
+            month = _checkProperties('month'),
+            show = _checkProperties('show'),
+            type = _checkProperties('type'),
+            weekday = _checkProperties('weekday'),
+            year = _checkProperties('year');
 
         let body = type ? (
             <Calendar
@@ -55,7 +200,7 @@ export default class DataTimePicker extends Component {
 
         if (show) {
             picker = (
-                <div>
+                <div id="date-time-picker">
                     <div className="c-scrim c-scrim--shown"></div>
                     <div className="c-datepicker c-datepicker--open">
                         <input
@@ -86,11 +231,11 @@ export default class DataTimePicker extends Component {
                                 <span className="c-datepicker__header-date__month js-date-month">{month} {year}</span>
                                 <span className="c-datepicker__header-date__day js-date-day">{day}</span>
                                 <span className="c-datepicker__header-date__time js-date-time">
-                                                    <span
-                                                        className="c-datepicker__header-date__hours js-date-hours">{hours}</span>:
-                                                    <span
-                                                        className="c-datepicker__header-date__minutes js-date-minutes">{minutes}</span>
-                                                </span>
+                                    <span
+                                        className="c-datepicker__header-date__hours js-date-hours">{hours}</span>:
+                                    <span
+                                        className="c-datepicker__header-date__minutes js-date-minutes">{minutes}</span>
+                                </span>
                             </div>
                         </div>
 
@@ -106,7 +251,7 @@ export default class DataTimePicker extends Component {
         }
 
         return (
-            <div id="date-time-picker">
+            <div>
                 {picker}
             </div>
         );
