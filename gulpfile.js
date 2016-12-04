@@ -17,6 +17,7 @@ let argv = require('yargs').argv,
 
 gulp.task('scripts', () => {
     let cb = browserify({
+        // entries: ['./app.js'],
         entries: ['./src/DataTimePicker/DataTimePicker.jsx'],
         debug: true,
         cache: {},
@@ -32,7 +33,7 @@ gulp.task('scripts', () => {
                 console.error(err);
                 this.emit('end');
             })
-            .pipe(source('main.js'))
+            .pipe(source('react-material-datetime-picker.js'))
             .pipe(buffer())
             .pipe(sourcemaps.init({loadMaps: true}))
             .pipe(sourcemaps.write('./'))

@@ -127,6 +127,7 @@ export default class DataTimePicker extends Component {
      */
     clickOnCancel = () => {
         const {show} = this.state;
+        console.log('i here Cancel', this.state);
         this.setState({
             show: !show,
         })
@@ -137,6 +138,7 @@ export default class DataTimePicker extends Component {
      */
     clickOnOK = () => {
         const {show} = this.state;
+        console.log('i here OK', this.state);
         this.setState({
             show: !show,
         })
@@ -178,23 +180,33 @@ export default class DataTimePicker extends Component {
         return result;
     };
 
+    componentWillReceiveProps(nextProps) {
+        const {state} = this;
+        this.setState(
+            ...state,
+            nextProps,
+        );
+    }
+
+    componentDidMount() {
+        const {props, state} = this;
+
+        this.setState(
+            ...state,
+            props,
+        );
+    }
+
     render() {
-        const {_checkFunc, _checkProperties} = this,
+        const {_checkFunc, state} = this,
             clickOnCancel = _checkFunc('clickOnCancel'),
             clickOnOK = _checkFunc('clickOnOK'),
-            day = _checkProperties('day'),
             handleChangeDay = _checkFunc('handleChangeDay'),
             handleChangeHours = _checkFunc('handleChangeHours'),
             handleChangeMinutes = _checkFunc('handleChangeMinutes'),
             handleChangeMonth = _checkFunc('handleChangeMonth'),
             handleChangeType = _checkFunc('handleChangeType'),
-            hours = _checkProperties('hours'),
-            minutes = _checkProperties('minutes'),
-            month = _checkProperties('month'),
-            show = _checkProperties('show'),
-            type = _checkProperties('type'),
-            weekday = _checkProperties('weekday'),
-            year = _checkProperties('year');
+            {day, hours, minutes, month, show, type, weekday, year} = state;
 
         let body = type ? (
             <Calendar
