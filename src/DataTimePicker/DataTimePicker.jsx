@@ -127,7 +127,6 @@ export default class DataTimePicker extends Component {
      */
     clickOnCancel = () => {
         const {show} = this.state;
-        console.log('i here Cancel', this.state);
         this.setState({
             show: !show,
         })
@@ -138,28 +137,9 @@ export default class DataTimePicker extends Component {
      */
     clickOnOK = () => {
         const {show} = this.state;
-        console.log('i here OK', this.state);
         this.setState({
             show: !show,
         })
-    };
-
-    /**
-     * Проверка наличия свойства в this.props и this.state
-     * @param prop
-     * @returns {*}
-     * @private
-     */
-    _checkProperties = (prop) => {
-        let result;
-
-        if (this.props.hasOwnProperty(prop)) {
-            result = this.props[prop];
-        } else if (this.state.hasOwnProperty(prop)) {
-            result = this.state[prop];
-        }
-
-        return result;
     };
 
     /**
