@@ -10,7 +10,7 @@
 ## Установка
 
 ~~~
-npm install --save react-material-datetimepicker
+npm install --save react-material-datetime-picker
 ~~~
 
 ## Подключение
@@ -29,7 +29,8 @@ import DataTimePicker from 'react-material-datetime-picker';
 
 ## API
 
-По-умолчанию используются внутренние свойства и обработчики. Но при желании, в компонент можно передать свои свойства и обработчики.
+По-умолчанию используются внутренние свойства и обработчики. 
+Для полного использования, вам придется передать свои свойства и обработчики.
 
 ### Параметры
 
@@ -50,8 +51,6 @@ import DataTimePicker from 'react-material-datetime-picker';
 `weekday` (*string*) - день недели. **По-умолчанию**, текущий день недели (по времени установленному в ОС)
 
 ### Обработчики
-
-При передачи своих обработчиков, в компонент необходимо передавать и необходимые свойства, который обработчик должен менять.
 
 `handleChangeType` - Обработчик изменения активной вкладки (календарь/часы)
 
@@ -75,7 +74,7 @@ import DataTimePicker from 'react-material-datetime-picker';
 import React, { Component, PropTypes }  from 'react';
 import ReactDOM from 'react-dom';
 
-import { DataTimePicker } from './src';
+import DataTimePicker from 'react-material-datetime-picker';
 
 class App extends Component {
     constructor(props) {
@@ -95,14 +94,6 @@ ReactDOM.render(<App />, document.getElementById('app'));
 
 ## Пример использования с передачей своих свойств и обработчиков
 ```javascript
-/**
-* ==========================================================
-*       Данный код показывает внутренние свойства и 
-*           обработчики, которые по-умолчанию,
-*           использует компонент.
-* ==========================================================
-*/
-
 "use strict";
 
 import React, { Component, PropTypes }  from 'react';
@@ -114,7 +105,7 @@ import ReactDOM from 'react-dom';
 import moment from 'moment';
 import 'moment/locale/ru';
 
-import DataTimePicker from 'react-material-datetimepicker';
+import DataTimePicker from 'react-material-datetime-picker';
 
 class App extends Component {
     constructor(props) {

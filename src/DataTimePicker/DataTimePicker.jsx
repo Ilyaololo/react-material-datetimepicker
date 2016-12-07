@@ -13,21 +13,20 @@ import { Calendar, Clock } from '../';
 
 export default class DataTimePicker extends Component {
     static propTypes = {
-        clickOnCancel: React.PropTypes.func,
-        clickOnOK: React.PropTypes.func,
-        day: React.PropTypes.string,
+        clickOnCancel: React.PropTypes.func.isRequired,
+        clickOnOK: React.PropTypes.func.isRequired,
+        day: React.PropTypes.string.isRequired,
         handleChangeDay: React.PropTypes.func,
         handleChangeHours: React.PropTypes.func,
         handleChangeMinutes: React.PropTypes.func,
         handleChangeMonth: React.PropTypes.func,
         handleChangeType: React.PropTypes.func,
-        hours: React.PropTypes.string,
-        minutes: React.PropTypes.string,
-        month: React.PropTypes.string,
-        show: PropTypes.bool,
-        type: React.PropTypes.bool,
-        weekday: React.PropTypes.string,
-        year: React.PropTypes.string,
+        hours: React.PropTypes.string.isRequired,
+        minutes: React.PropTypes.string.isRequired,
+        month: React.PropTypes.string.isRequired,
+        show: PropTypes.bool.isRequired,
+        weekday: React.PropTypes.string.isRequired,
+        year: React.PropTypes.string.isRequired,
     };
 
     constructor(props) {
@@ -160,25 +159,25 @@ export default class DataTimePicker extends Component {
         return result;
     };
 
-    componentWillReceiveProps(nextProps) {
-        const {state} = this;
-        this.setState(
-            ...state,
-            nextProps,
-        );
-    }
+    /**
+     * Проверка наличия свойств
+     * @param prop
+     * @private
+     */
+    _checkProp = (prop) => {
+        let result;
 
-    componentDidMount() {
-        const {props, state} = this;
+        if (this.props.hasOwnProperty(prop)) {
+            result = this.props[prop];
+        } else {
+            result = this.state[prop];
+        }
 
-        this.setState(
-            ...state,
-            props,
-        );
-    }
+        return result;
+    };
 
     render() {
-        const {_checkFunc, state} = this,
+        const {_checkFunc, _checkProp} = this,
             clickOnCancel = _checkFunc('clickOnCancel'),
             clickOnOK = _checkFunc('clickOnOK'),
             handleChangeDay = _checkFunc('handleChangeDay'),
@@ -186,7 +185,14 @@ export default class DataTimePicker extends Component {
             handleChangeMinutes = _checkFunc('handleChangeMinutes'),
             handleChangeMonth = _checkFunc('handleChangeMonth'),
             handleChangeType = _checkFunc('handleChangeType'),
-            {day, hours, minutes, month, show, type, weekday, year} = state;
+            day = _checkProp('day'),
+            hours = _checkProp('hours'),
+            minutes = _checkProp('minutes'),
+            month = _checkProp('month'),
+            show = _checkProp('show'),
+            type = _checkProp('type'),
+            weekday = _checkProp('weekday'),
+            year = _checkProp('year');
 
         let body = type ? (
             <Calendar
