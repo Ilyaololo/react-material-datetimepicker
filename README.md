@@ -50,6 +50,10 @@ import DataTimePicker from 'react-material-datetime-picker';
 
 `weekday` (*string*) - день недели. **По-умолчанию**, текущий день недели (по времени установленному в ОС)
 
+`showClock` (*bool*) - показывать часы. **По-умолчанию**, скрыты
+
+`showCalendar` (*bool*) - показывать календарь. **По-умолчанию**, показываются.
+
 ### Обработчики
 
 `handleChangeType` - Обработчик изменения активной вкладки (календарь/часы)
@@ -129,6 +133,8 @@ class App extends Component {
             month: moment().format("MMMM"), // месяц
             year: moment().format("YYYY"), // год
             weekday: moment().format("dddd") // день недели
+            showCalendar: true,
+            showClock: false,
         }
     }
 
@@ -223,7 +229,7 @@ class App extends Component {
     };
 
     render() {
-        const {type, hours, minutes, day, month, show, year, weekday} = this.state;
+        const {type, hours, minutes, day, month, show, showCalendar, showClock, year, weekday} = this.state;
 
         return (
             <DataTimePicker
@@ -233,6 +239,8 @@ class App extends Component {
                 day={day}
                 month={month}
                 show={show}
+                showCalendar={showCalendar}
+                showClock={showClock}
                 year={year}
                 weekday={weekday}
                 handleChangeType={this.handleChangeType}

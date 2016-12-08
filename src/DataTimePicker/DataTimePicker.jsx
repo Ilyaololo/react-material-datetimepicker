@@ -16,15 +16,17 @@ export default class DataTimePicker extends Component {
         clickOnCancel: React.PropTypes.func.isRequired,
         clickOnOK: React.PropTypes.func.isRequired,
         day: React.PropTypes.string.isRequired,
-        handleChangeDay: React.PropTypes.func,
-        handleChangeHours: React.PropTypes.func,
-        handleChangeMinutes: React.PropTypes.func,
-        handleChangeMonth: React.PropTypes.func,
-        handleChangeType: React.PropTypes.func,
+        handleChangeDay: React.PropTypes.func.isRequired,
+        handleChangeHours: React.PropTypes.func.isRequired,
+        handleChangeMinutes: React.PropTypes.func.isRequired,
+        handleChangeMonth: React.PropTypes.func.isRequired,
+        handleChangeType: React.PropTypes.func.isRequired,
         hours: React.PropTypes.string.isRequired,
         minutes: React.PropTypes.string.isRequired,
         month: React.PropTypes.string.isRequired,
         show: PropTypes.bool.isRequired,
+        showCalendar: PropTypes.bool,
+        showClock: PropTypes.bool,
         weekday: React.PropTypes.string.isRequired,
         year: React.PropTypes.string.isRequired,
     };
@@ -47,6 +49,8 @@ export default class DataTimePicker extends Component {
             minutes: moment().format("mm"), // минуты
             month: moment().format("MMMM"), // месяц
             show: true,
+            showCalendar: true,
+            showClock: false,
             type: true, // активная вкладка: false - часы, true - календарь
             weekday: moment().format("dddd"), // день недели
             year: moment().format("YYYY"), // год
@@ -192,52 +196,78 @@ export default class DataTimePicker extends Component {
             show = _checkProp('show'),
             type = _checkProp('type'),
             weekday = _checkProp('weekday'),
-            year = _checkProp('year');
+            year = _checkProp('year'),
+            showCalendar = _checkProp('showCalendar'),
+            showClock = _checkProp('showClock');
 
-        let body = type ? (
-            <Calendar
-                day={day}
-                handleChangeDay={handleChangeDay}
-                handleChangeMonth={handleChangeMonth}
-                month={month}
-                year={year}
-            />
-        ) : (
-            <Clock
-                handleChangeHours={handleChangeHours}
-                handleChangeMinutes={handleChangeMinutes}
-                hours={hours}
-                minutes={minutes}
-            />
-        );
+        let body;
 
-        let picker;
+        if (type) {
+            if (showCalendar) {
+                body = (
+                    <Calendar
+                        day={day}
+                        handleChangeDay={handleChangeDay}
+                        handleChangeMonth={handleChangeMonth}
+                        month={month}
+                        year={year}
+                    />
+                );
+            }
+        } else {
+            if (showClock) {
+                body = (
+                    <Clock
+                        handleChangeHours={handleChangeHours}
+                        handleChangeMinutes={handleChangeMinutes}
+                        hours={hours}
+                        minutes={minutes}
+                    />
+                );
+            }
+        }
+
+        let picker,
+            buttonCalendar,
+            buttonClock;
+
+        if (showCalendar) {
+            buttonCalendar = (
+                <input
+                    className="c-datepicker__toggle c-datepicker__toggle--left  c-datepicker--show-calendar"
+                    type="radio"
+                    name="date-toggle"
+                    value="calendar"
+                    defaultChecked={ type }
+                    onClick={() => {
+                        handleChangeType(true)
+                    }}
+                />
+            );
+        }
+
+        if (showClock) {
+            buttonClock = (
+                <input
+                    className="c-datepicker__toggle c-datepicker__toggle--right c-datepicker--show-time"
+                    type="radio"
+                    name="date-toggle"
+                    value="time"
+                    defaultChecked={ !type }
+                    onClick={() => {
+                        handleChangeType(false)
+                    }}
+                />
+            );
+        }
 
         if (show) {
             picker = (
                 <div id="date-time-picker">
                     <div className="c-scrim c-scrim--shown" onClick={clickOnCancel}></div>
                     <div className="c-datepicker c-datepicker--open">
-                        <input
-                            className="c-datepicker__toggle c-datepicker__toggle--right c-datepicker--show-time"
-                            type="radio"
-                            name="date-toggle"
-                            value="time"
-                            defaultChecked={ !type }
-                            onClick={() => {
-                                handleChangeType(false)
-                            }}
-                        />
-                        <input
-                            className="c-datepicker__toggle c-datepicker__toggle--left  c-datepicker--show-calendar"
-                            type="radio"
-                            name="date-toggle"
-                            value="calendar"
-                            defaultChecked={ type }
-                            onClick={() => {
-                                handleChangeType(true)
-                            }}
-                        />
+                        {buttonClock}
+                        {buttonCalendar}
                         <div className="c-datepicker__header">
                             <div className="c-datepicker__header-day">
                                 <span className="js-day">{weekday}</span>
