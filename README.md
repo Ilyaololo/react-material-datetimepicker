@@ -30,35 +30,36 @@ import DataTimePicker from 'react-material-datetime-picker';
 ## API
 
 По-умолчанию используются внутренние свойства и обработчики. 
-Для полного использования, вам придется передать свои свойства и обработчики.
 
 ### Параметры
-
-`type` (*bool*) - активная вкладка: календарь/часы. **По-умолчанию**: true
+`day` (*string*) - день. **По-умолчанию**, текущий день (по времени установленному в ОС)
 
 `hours` (*string*) - часы. **По-умолчанию**, текущий час (по времени, установленному в ОС)
 
 `minutes` (*string*) - минуты. **По-умолчанию**, текущая минута (по времени установленному в ОС)
 
-`day` (*string*) - день. **По-умолчанию**, текущий день (по времени установленному в ОС)
-
 `month` (*string*) - месяц. **По-умолчанию**, текущий месяц (по времени установленному в ОС)
 
 `show` (*bool*) - показывать комонент или скрыть его. **По-умолчанию**, true
 
-`year` (*string*) - год. **По-умолчанию**, текущий год (по времени установленному в ОС)
-
-`weekday` (*string*) - день недели. **По-умолчанию**, текущий день недели (по времени установленному в ОС)
+`showCalendar` (*bool*) - показывать календарь. **По-умолчанию**, показываются.
 
 `showClock` (*bool*) - показывать часы. **По-умолчанию**, скрыты
 
-`showCalendar` (*bool*) - показывать календарь. **По-умолчанию**, показываются.
+`type` (*bool*) - активная вкладка: календарь/часы. true - активен календарь, false - активены часы. **По-умолчанию**: true
+
+`weekday` (*string*) - день недели. **По-умолчанию**, текущий день недели (по времени установленному в ОС)
+
+`year` (*string*) - год. **По-умолчанию**, текущий год (по времени установленному в ОС)
 
 ### Обработчики
 
-`handleChangeType` - Обработчик изменения активной вкладки (календарь/часы)
+При вызове, обработчику передается 3 аргумента: контекст компонента (this) для обращения к его состоянию, 
+аргументы для, которые изначально передавались передавались обработчику, сам обработчик.  
 
-`handleChangeMonth` - Обработчик изменения месяца
+`clickOnCancel` - Обработчик нажатия на кнопку Cancel
+
+`clickOnOK` - Обработчик нажатия на кнопку OK
 
 `handleChangeDay` - Обработчик изменения месяца
 
@@ -66,12 +67,11 @@ import DataTimePicker from 'react-material-datetime-picker';
 
 `handleChangeMinutes` - Обработчик изменения минут
 
-`clickOnCancel` - Обработчик нажатия на кнопку Cancel
+`handleChangeMonth` - Обработчик изменения месяца
 
-`clickOnOK` - Обработчик нажатия на кнопку OK
+`handleChangeType` - Обработчик изменения активной вкладки (календарь/часы)
 
 ## Простой пример использования
-
 ```javascript
 "use strict";
 
@@ -96,16 +96,15 @@ ReactDOM.render(<App />, document.getElementById('app'));
 
 ```
 
-## Пример использования с передачей своих свойств и обработчиков
+## Пример использования с передачей своих свойств
+
+Для удобной работы со временем, советую использовать Moment.js - библеотеку для работы со временем.
+
 ```javascript
 "use strict";
 
-import React, { Component, PropTypes }  from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-
-/**
- * Для удобной работы со временем
- */
 import moment from 'moment';
 import 'moment/locale/ru';
 
@@ -115,134 +114,96 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-        /**
-         * Подключаем локаль
-         */
         moment.locale('ru');
 
         /**
          * Состояние, где будут хранится параметры компонента
-         * По-умолчанию, дата и время берутся из системного времени
          */
         this.state = {
-            type: true, // активная вкладка: false - часы, true - календарь
+            day: moment().format("DD"), // день
             hours: moment().format("HH"), // часы
             minutes: moment().format("mm"), // минуты
-            day: moment().format("DD"), // день
-            show: true, // показать/скрыть компонент
             month: moment().format("MMMM"), // месяц
-            year: moment().format("YYYY"), // год
+            show: true, // показать/скрыть компонент
+            showCalendar: true, // покаывать календарь
+            showClock: false, // показывать часы
+            type: true, // активная вкладка
             weekday: moment().format("dddd") // день недели
-            showCalendar: true,
-            showClock: false,
+            year: moment().format("YYYY"), // год
         }
     }
 
-    /**
-     * Обработчик изменения активной вкладки (календарь/часы)
-     * @param type
-     */
-    handleChangeType = (type) => {
-        this.setState({
-            type: type
-        });
-    };
-
-    /**
-     * Обработчик изменения месяца
-     * @param newMonth
-     */
-    handleChangeMonth = (newMonth) => {
-        const {month, year} = this.state;
-
-        if (month === "декабрь" && newMonth === "январь") { // для переключения на следующий год
-            const newYear = String(parseInt(year, 10) + 1);
-
-            this.setState({
-                month: newMonth,
-                year: newYear
-            });
-        } else if (month === "январь" && newMonth === "декабрь") { // для переключения на предыдущий год
-            const newYear = String(parseInt(year, 10) - 1);
-
-            this.setState({
-                month: newMonth,
-                year: newYear
-            });
-        } else {
-            this.setState({
-                month: newMonth
-            });
-        }
-    };
-
-    /**
-     * Обработчик изменения дня
-     * @param day
-     */
-    handleChangeDay = (day) => {
-        this.setState({
-            day: day
-        });
-    };
-
-    /**
-     * Обработчик изменения часов
-     * @param hours
-     */
-    handleChangeHours = (hours) => {
-        this.setState({
-            hours: moment(String(hours), "HH").format("HH")
-        });
-    };
-
-    /**
-     * Обработчик изменения минут
-     * @param minutes
-     */
-    handleChangeMinutes = (minutes) => {
-        this.setState({
-            minutes: moment(String(minutes), "mm").format("mm")
-        });
-    };
-
-    /**
-     * Обработчик нажатия на кнопку Cancel
-     */
-    clickOnCancel = () => {
-        const {show} = this.state;
-        
-        this.setState({
-            show: !show,
-        });
-    };
-
-    /**
-     * Обработчик нажатия на кнопку OK
-     */
-    clickOnOK = () => {
-        const {show} = this.state;
-        
-        this.setState({
-            show: !show,
-        });
-    };
-
     render() {
-        const {type, hours, minutes, day, month, show, showCalendar, showClock, year, weekday} = this.state;
+        const {day, hours, minutes, month, show, showCalendar, showClock, type, weekday,year} = this.state;
 
         return (
             <DataTimePicker
-                type={type}
+                day={day}
                 hours={hours}
                 minutes={minutes}
-                day={day}
                 month={month}
                 show={show}
                 showCalendar={showCalendar}
                 showClock={showClock}
-                year={year}
+                type={type}
                 weekday={weekday}
+                year={year}
+            />
+        );
+    }
+}
+
+ReactDOM.render(<App />, document.getElementById('app'));
+
+```
+## Пример использования с передачей своих обработчиков
+
+При вызове обработчика, ему передается конекст компонента (this).
+
+```javascript
+"use strict";
+
+import React, { Component, PropTypes }  from 'react';
+import ReactDOM from 'react-dom';
+
+import DataTimePicker from 'react-material-datetime-picker';
+
+class App extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    /**
+     * Обработчик изменения активной вкладки (календарь/часы)
+     * @param context
+     * @param arg
+     * @param lastHandler
+     */
+    handleChangeType = (context, arg, lastHandler) => {
+        // conext - this компонента DateTimePicker
+        // arg - объект с аргументами
+        // lastHandler - исходный обработчик
+        
+        console.log(context.state); // выведется все состояние компонента
+        
+        // можно изменять внутренние свойства
+        context.setState({
+           type: true,
+        });
+        
+        console.log(arg); // выведеться {type: false} или {type: true}
+    };
+
+    /**
+    * Обработчик нажатия на кнопку OK
+    */
+    clickOnOK = (context, arg, lastHandler) => {
+        lastHandler(); // при вызове исходного обработчика - аргументы передавать не нужно
+    };
+
+    render() {
+        return (
+            <DataTimePicker
                 handleChangeType={this.handleChangeType}
                 handleChangeMonth={this.handleChangeMonth}
                 handleChangeDay={this.handleChangeDay}

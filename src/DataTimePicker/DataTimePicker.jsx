@@ -13,22 +13,23 @@ import { Calendar, Clock } from '../';
 
 export default class DataTimePicker extends Component {
     static propTypes = {
-        clickOnCancel: React.PropTypes.func.isRequired,
-        clickOnOK: React.PropTypes.func.isRequired,
-        day: React.PropTypes.string.isRequired,
-        handleChangeDay: React.PropTypes.func.isRequired,
-        handleChangeHours: React.PropTypes.func.isRequired,
-        handleChangeMinutes: React.PropTypes.func.isRequired,
-        handleChangeMonth: React.PropTypes.func.isRequired,
-        handleChangeType: React.PropTypes.func.isRequired,
-        hours: React.PropTypes.string.isRequired,
-        minutes: React.PropTypes.string.isRequired,
-        month: React.PropTypes.string.isRequired,
-        show: PropTypes.bool.isRequired,
+        clickOnCancel: React.PropTypes.func,
+        clickOnOK: React.PropTypes.func,
+        day: React.PropTypes.string,
+        handleChangeDay: React.PropTypes.func,
+        handleChangeHours: React.PropTypes.func,
+        handleChangeMinutes: React.PropTypes.func,
+        handleChangeMonth: React.PropTypes.func,
+        handleChangeType: React.PropTypes.func,
+        hours: React.PropTypes.string,
+        minutes: React.PropTypes.string,
+        month: React.PropTypes.string,
+        show: PropTypes.bool,
         showCalendar: PropTypes.bool,
         showClock: PropTypes.bool,
-        weekday: React.PropTypes.string.isRequired,
-        year: React.PropTypes.string.isRequired,
+        type: PropTypes.bool,
+        weekday: React.PropTypes.string,
+        year: React.PropTypes.string,
     };
 
     constructor(props) {
@@ -58,12 +59,76 @@ export default class DataTimePicker extends Component {
     }
 
     /**
+     * Вызов родного обработчика или того, что передали
+     * @param props
+     * @param arg
+     * @param lastFunc
+     * @param cb
+     * @private
+     */
+    _checkFunc = (props, arg, lastFunc, cb) => {
+        if (this.props.hasOwnProperty(props) && this.props[props] instanceof Function) {
+            this.props[props](this, arg, lastFunc);
+        } else {
+            cb();
+        }
+    };
+
+    /**
+     * Свойства из props в state
+     * @param nextProps
+     * @private
+     */
+    _props2state = (nextProps = this.props) => {
+        const {_checkProp} = this,
+            {day, hours, minutes, month, show, showCalendar, showClock, type, weekday, year} = nextProps;
+
+        _checkProp('day', day);
+        _checkProp('hours', hours);
+        _checkProp('minutes', minutes);
+        _checkProp('month', month);
+        _checkProp('show', show);
+        _checkProp('showCalendar', showCalendar);
+        _checkProp('showClock', showClock);
+        _checkProp('type', type);
+        _checkProp('weekday', weekday);
+        _checkProp('year', year);
+    };
+
+    /**
+     * Проверка наличия свойств в props
+     * @param name
+     * @param props
+     * @private
+     */
+    _checkProp = (name, props) => {
+        const {state} = this;
+
+        let result = {};
+
+        if (this.props.hasOwnProperty(name)) {
+            result[name] = props;
+
+            this.setState({
+                ...state,
+                ...result,
+            })
+        }
+    };
+
+    /**
      * Обработчик изменения активной вкладки (календарь/часы)
      * @param type
      */
     handleChangeType = (type) => {
-        this.setState({
-            type: type
+        const f = () => {
+            this.setState({
+                type: type
+            });
+        };
+
+        this._checkFunc('handleChangeType', {type: type}, f, () => {
+            f();
         });
     };
 
@@ -72,27 +137,33 @@ export default class DataTimePicker extends Component {
      * @param newMonth
      */
     handleChangeMonth = (newMonth) => {
-        const {month, year} = this.state;
+        const f = () => {
+            const {month, year} = this.state;
 
-        if (month === "декабрь" && newMonth === "январь") { // для переключения на следующий год
-            const newYear = String(parseInt(year, 10) + 1);
+            if (month === "декабрь" && newMonth === "январь") { // для переключения на следующий год
+                const newYear = String(parseInt(year, 10) + 1);
 
-            this.setState({
-                month: newMonth,
-                year: newYear
-            });
-        } else if (month === "январь" && newMonth === "декабрь") { // для переключения на предыдущий год
-            const newYear = String(parseInt(year, 10) - 1);
+                this.setState({
+                    month: newMonth,
+                    year: newYear
+                });
+            } else if (month === "январь" && newMonth === "декабрь") { // для переключения на предыдущий год
+                const newYear = String(parseInt(year, 10) - 1);
 
-            this.setState({
-                month: newMonth,
-                year: newYear
-            });
-        } else {
-            this.setState({
-                month: newMonth
-            });
-        }
+                this.setState({
+                    month: newMonth,
+                    year: newYear
+                });
+            } else {
+                this.setState({
+                    month: newMonth
+                });
+            }
+        };
+
+        this._checkFunc('handleChangeMonth', {newMonth: newMonth}, f, () => {
+            f();
+        });
     };
 
     /**
@@ -100,8 +171,14 @@ export default class DataTimePicker extends Component {
      * @param day
      */
     handleChangeDay = (day) => {
-        this.setState({
-            day: day
+        const f = () => {
+            this.setState({
+                day: day
+            });
+        };
+
+        this._checkFunc('handleChangeDay', {day: day}, f, () => {
+            f();
         });
     };
 
@@ -110,8 +187,14 @@ export default class DataTimePicker extends Component {
      * @param hours
      */
     handleChangeHours = (hours) => {
-        this.setState({
-            hours: moment(String(hours), "HH").format("HH")
+        const f = () => {
+            this.setState({
+                hours: moment(String(hours), "HH").format("HH")
+            });
+        };
+
+        this._checkFunc('handleChangeHours', {hours: hours}, f, () => {
+            f();
         });
     };
 
@@ -120,8 +203,14 @@ export default class DataTimePicker extends Component {
      * @param minutes
      */
     handleChangeMinutes = (minutes) => {
-        this.setState({
-            minutes: moment(String(minutes), "mm").format("mm")
+        const f = () => {
+            this.setState({
+                minutes: moment(String(minutes), "mm").format("mm")
+            });
+        };
+
+        this._checkFunc('handleChangeMinutes', {minutes: minutes}, f, () => {
+            f();
         });
     };
 
@@ -129,76 +218,47 @@ export default class DataTimePicker extends Component {
      * Обработчик нажатия на кнопку Cancel
      */
     clickOnCancel = () => {
-        const {show} = this.state;
-        this.setState({
-            show: !show,
-        })
+        const f = () => {
+            const {show} = this.state;
+
+            this.setState({
+                show: !show,
+            });
+        };
+
+        this._checkFunc('clickOnCancel', {}, f, () => {
+            f();
+        });
     };
 
     /**
      * Обработчик нажатия на кнопку OK
      */
     clickOnOK = () => {
-        const {show} = this.state;
-        this.setState({
-            show: !show,
-        })
+        const f = () => {
+            const {show} = this.state;
+
+            this.setState({
+                show: !show,
+            });
+        };
+
+        this._checkFunc('clickOnOK', {}, f, () => {
+            f();
+        });
     };
 
-    /**
-     * Проверка обработчиков
-     * @param prop
-     * @returns {*}
-     * @private
-     */
-    _checkFunc = (prop) => {
-        let result;
+    componentDidMount() {
+        this._props2state();
+    }
 
-        if (this.props.hasOwnProperty(prop)) {
-            result = this.props[prop];
-        } else {
-            result = this[prop];
-        }
-
-        return result;
-    };
-
-    /**
-     * Проверка наличия свойств
-     * @param prop
-     * @private
-     */
-    _checkProp = (prop) => {
-        let result;
-
-        if (this.props.hasOwnProperty(prop)) {
-            result = this.props[prop];
-        } else {
-            result = this.state[prop];
-        }
-
-        return result;
-    };
+    componentWillReceiveProps(nextProps) {
+        this._props2state(nextProps);
+    }
 
     render() {
-        const {_checkFunc, _checkProp} = this,
-            clickOnCancel = _checkFunc('clickOnCancel'),
-            clickOnOK = _checkFunc('clickOnOK'),
-            handleChangeDay = _checkFunc('handleChangeDay'),
-            handleChangeHours = _checkFunc('handleChangeHours'),
-            handleChangeMinutes = _checkFunc('handleChangeMinutes'),
-            handleChangeMonth = _checkFunc('handleChangeMonth'),
-            handleChangeType = _checkFunc('handleChangeType'),
-            day = _checkProp('day'),
-            hours = _checkProp('hours'),
-            minutes = _checkProp('minutes'),
-            month = _checkProp('month'),
-            show = _checkProp('show'),
-            type = _checkProp('type'),
-            weekday = _checkProp('weekday'),
-            year = _checkProp('year'),
-            showCalendar = _checkProp('showCalendar'),
-            showClock = _checkProp('showClock');
+        const {day, hours, minutes, month, show, showCalendar, showClock, type, weekday, year} = this.state,
+            {clickOnCancel, clickOnOK, handleChangeDay, handleChangeHours, handleChangeMinutes, handleChangeMonth, handleChangeType} = this;
 
         let body;
 
