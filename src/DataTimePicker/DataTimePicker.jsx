@@ -291,7 +291,7 @@ export default class DataTimePicker extends Component {
             buttonCalendar,
             buttonClock;
 
-        if (showCalendar) {
+        if (showCalendar && showClock) {
             buttonCalendar = (
                 <input
                     className="c-datepicker__toggle c-datepicker__toggle--left  c-datepicker--show-calendar"
@@ -304,9 +304,7 @@ export default class DataTimePicker extends Component {
                     }}
                 />
             );
-        }
 
-        if (showClock) {
             buttonClock = (
                 <input
                     className="c-datepicker__toggle c-datepicker__toggle--right c-datepicker--show-time"
