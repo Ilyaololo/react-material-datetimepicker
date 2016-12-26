@@ -327,13 +327,13 @@ export default class DataTimePicker extends Component {
             picker = (
                 <div id="date-time-picker">
                     <div className="c-scrim c-scrim--shown" onClick={clickOnCancel}></div>
-                    <div className="close--button" onClick={clickOnCancel}>
-                        <i className="material-icons">cancel</i>
-                    </div>
                     <div className="c-datepicker c-datepicker--open">
                         {buttonClock}
                         {buttonCalendar}
                         <div className="c-datepicker__header">
+                            <div className="close--button" onClick={clickOnCancel}>
+                                <i className="material-icons">cancel</i>
+                            </div>
                             <div className="c-datepicker__header-day">
                                 <span className="js-day">{weekday}</span>
                             </div>
