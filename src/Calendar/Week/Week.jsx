@@ -11,10 +11,10 @@ import { Day } from '../Day';
 
 export default class Week extends Component {
     static propTypes = {
-        day: PropTypes.string.isRequired,
-        month: PropTypes.string.isRequired,
-        year: PropTypes.string.isRequired,
-        week: PropTypes.number.isRequired,
+        day:             PropTypes.string.isRequired,
+        month:           PropTypes.string.isRequired,
+        year:            PropTypes.string.isRequired,
+        week:            PropTypes.number.isRequired,
         handleChangeDay: PropTypes.func.isRequired,
     };
 
@@ -23,19 +23,31 @@ export default class Week extends Component {
     }
 
     render() {
-        const {day, month, year, week, handleChangeDay} = this.props;
+        const { day, month, year, week, handleChangeDay } = this.props;
 
-        let currentWeek = moment().set({'week': week, 'year': year}),
+        let correctWeek, correctYear;
+
+        const weekInYear = moment(`${year}`, 'YYYY').isoWeeksInYear();
+
+        if (week > weekInYear) {
+            correctWeek = '01';
+            correctYear = String(parseInt(year, 10) + 1);
+        } else {
+            correctWeek = week;
+            correctYear = year;
+        }
+
+        let currentWeek = moment(`${correctYear}-${correctWeek}`, 'YYYY-WW'),
             days = [];
 
         for (let i = 1; i <= 7; ++i) { // цикл по дням недели
             days.push(
                 <Day
-                    key={"Day_" + i}
-                    day={currentWeek.isoWeekday(i).format("DD")}
-                    selectedDay={day === currentWeek.isoWeekday(i).format("DD")}
-                    active={currentWeek.isoWeekday(i).format('MMMM') === month}
-                    handleChangeDay={handleChangeDay}
+                    active={ currentWeek.isoWeekday(i).format('MMMM') === month }
+                    day={ currentWeek.isoWeekday(i).format("DD") }
+                    handleChangeDay={ handleChangeDay }
+                    key={ `Day_${i}` }
+                    selectedDay={ day === currentWeek.isoWeekday(i).format("DD") }
                 />
             );
         }

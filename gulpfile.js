@@ -17,14 +17,14 @@ let argv = require('yargs').argv,
 
 gulp.task('scripts', () => {
     let cb = browserify({
-        // entries: ['./app.js'],
-        entries: ['./src/DataTimePicker/DataTimePicker.jsx'],
-        debug: true,
-        cache: {},
+        //entries:      ['./app.js'],
+        entries:      ['./src/DataTimePicker/DataTimePicker.jsx'],
+        debug:        true,
+        cache:        {},
         packageCache: {},
-        fullPaths: true,
-        extensions: ['.jsx', '.js'],
-        plugin: [watchify]
+        fullPaths:    true,
+        extensions:   ['.jsx', '.js'],
+        plugin:       [watchify]
     });
     let rebundle = () => {
         cb.transform(babelify);
@@ -35,7 +35,7 @@ gulp.task('scripts', () => {
             })
             .pipe(source('react-material-datetime-picker.js'))
             .pipe(buffer())
-            .pipe(sourcemaps.init({loadMaps: true}))
+            .pipe(sourcemaps.init({ loadMaps: true }))
             .pipe(sourcemaps.write('./'))
             .pipe(gulp.dest('./build/'));
     };
@@ -55,11 +55,13 @@ gulp.task('convert-sass', function () {
 
 gulp.task('js', function () {
     let cb = browserify({
-        entries: ['./src/DataTimePicker/DataTimePicker.jsx'], // Only need initial file, browserify finds the deps
-        // entries: ['./app.js'],
-        debug: !argv.prod, // Gives us sourcemapping
-        cache: {}, packageCache: {}, fullPaths: true,
-        extensions: ['.jsx', '.js']
+        entries:      ['./src/DataTimePicker/DataTimePicker.jsx'], // Only need initial file, browserify finds the deps
+        //entries:      ['./app.js'],
+        debug:        !argv.prod, // Gives us sourcemapping
+        cache:        {},
+        packageCache: {},
+        fullPaths:    true,
+        extensions:   ['.jsx', '.js']
     });
     process.env.NODE_ENV = argv.prod ? "production" : "development";
     cb.transform(babelify.configure());

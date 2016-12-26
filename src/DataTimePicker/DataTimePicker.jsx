@@ -13,23 +13,23 @@ import { Calendar, Clock } from '../';
 
 export default class DataTimePicker extends Component {
     static propTypes = {
-        clickOnCancel: React.PropTypes.func,
-        clickOnOK: React.PropTypes.func,
-        day: React.PropTypes.string,
-        handleChangeDay: React.PropTypes.func,
-        handleChangeHours: React.PropTypes.func,
+        clickOnCancel:       React.PropTypes.func,
+        clickOnOK:           React.PropTypes.func,
+        day:                 React.PropTypes.string,
+        handleChangeDay:     React.PropTypes.func,
+        handleChangeHours:   React.PropTypes.func,
         handleChangeMinutes: React.PropTypes.func,
-        handleChangeMonth: React.PropTypes.func,
-        handleChangeType: React.PropTypes.func,
-        hours: React.PropTypes.string,
-        minutes: React.PropTypes.string,
-        month: React.PropTypes.string,
-        show: PropTypes.bool,
-        showCalendar: PropTypes.bool,
-        showClock: PropTypes.bool,
-        type: PropTypes.bool,
-        weekday: React.PropTypes.string,
-        year: React.PropTypes.string,
+        handleChangeMonth:   React.PropTypes.func,
+        handleChangeType:    React.PropTypes.func,
+        hours:               React.PropTypes.string,
+        minutes:             React.PropTypes.string,
+        month:               React.PropTypes.string,
+        show:                PropTypes.bool,
+        showCalendar:        PropTypes.bool,
+        showClock:           PropTypes.bool,
+        type:                PropTypes.bool,
+        weekday:             React.PropTypes.string,
+        year:                React.PropTypes.string,
     };
 
     constructor(props) {
@@ -45,16 +45,16 @@ export default class DataTimePicker extends Component {
          * По-умолчанию, дата и время берутся из системного времени
          */
         this.state = {
-            day: moment().format("DD"), // день
-            hours: moment().format("HH"), // часы
-            minutes: moment().format("mm"), // минуты
-            month: moment().format("MMMM"), // месяц
-            show: true,
+            day:          moment().format("DD"), // день
+            hours:        moment().format("HH"), // часы
+            minutes:      moment().format("mm"), // минуты
+            month:        moment().format("MMMM"), // месяц
+            show:         true,
             showCalendar: true,
-            showClock: false,
-            type: true, // активная вкладка: false - часы, true - календарь
-            weekday: moment().format("dddd"), // день недели
-            year: moment().format("YYYY"), // год
+            showClock:    false,
+            type:         true, // активная вкладка: false - часы, true - календарь
+            weekday:      moment().format("dddd"), // день недели
+            year:         moment().format("YYYY"), // год
         }
     }
 
@@ -80,8 +80,8 @@ export default class DataTimePicker extends Component {
      * @private
      */
     _props2state = (nextProps = this.props) => {
-        const {_checkProp} = this,
-            {day, hours, minutes, month, show, showCalendar, showClock, type, weekday, year} = nextProps;
+        const { _checkProp } = this,
+            { day, hours, minutes, month, show, showCalendar, showClock, type, weekday, year } = nextProps;
 
         _checkProp('day', day);
         _checkProp('hours', hours);
@@ -102,7 +102,7 @@ export default class DataTimePicker extends Component {
      * @private
      */
     _checkProp = (name, props) => {
-        const {state} = this;
+        const { state } = this;
 
         let result = {};
 
@@ -127,7 +127,7 @@ export default class DataTimePicker extends Component {
             });
         };
 
-        this._checkFunc('handleChangeType', {type: type}, f, () => {
+        this._checkFunc('handleChangeType', { type: type }, f, () => {
             f();
         });
     };
@@ -138,30 +138,33 @@ export default class DataTimePicker extends Component {
      */
     handleChangeMonth = (newMonth) => {
         const f = () => {
-            const {month, year} = this.state;
+            const { day, month, year } = this.state;
 
             if (month === "декабрь" && newMonth === "январь") { // для переключения на следующий год
                 const newYear = String(parseInt(year, 10) + 1);
 
                 this.setState({
                     month: newMonth,
-                    year: newYear
+                    year:  newYear,
+                    weekday: moment(`${newYear}-${newMonth}-${day}`, 'YYYY-MMMM-DD').format('dddd')
                 });
             } else if (month === "январь" && newMonth === "декабрь") { // для переключения на предыдущий год
                 const newYear = String(parseInt(year, 10) - 1);
 
                 this.setState({
                     month: newMonth,
-                    year: newYear
+                    year:  newYear,
+                    weekday: moment(`${newYear}-${newMonth}-${day}`, 'YYYY-MMMM-DD').format('dddd')
                 });
             } else {
                 this.setState({
-                    month: newMonth
+                    month: newMonth,
+                    weekday: moment(`${year}-${newMonth}-${day}`, 'YYYY-MMMM-DD').format('dddd')
                 });
             }
         };
 
-        this._checkFunc('handleChangeMonth', {newMonth: newMonth}, f, () => {
+        this._checkFunc('handleChangeMonth', { newMonth: newMonth }, f, () => {
             f();
         });
     };
@@ -173,11 +176,12 @@ export default class DataTimePicker extends Component {
     handleChangeDay = (day) => {
         const f = () => {
             this.setState({
-                day: day
+                day: day,
+                weekday: moment(`${day}`, 'DD').format('dddd')
             });
         };
 
-        this._checkFunc('handleChangeDay', {day: day}, f, () => {
+        this._checkFunc('handleChangeDay', { day: day }, f, () => {
             f();
         });
     };
@@ -193,7 +197,7 @@ export default class DataTimePicker extends Component {
             });
         };
 
-        this._checkFunc('handleChangeHours', {hours: hours}, f, () => {
+        this._checkFunc('handleChangeHours', { hours: hours }, f, () => {
             f();
         });
     };
@@ -209,7 +213,7 @@ export default class DataTimePicker extends Component {
             });
         };
 
-        this._checkFunc('handleChangeMinutes', {minutes: minutes}, f, () => {
+        this._checkFunc('handleChangeMinutes', { minutes: minutes }, f, () => {
             f();
         });
     };
@@ -219,7 +223,7 @@ export default class DataTimePicker extends Component {
      */
     clickOnCancel = () => {
         const f = () => {
-            const {show} = this.state;
+            const { show } = this.state;
 
             this.setState({
                 show: !show,
@@ -236,7 +240,7 @@ export default class DataTimePicker extends Component {
      */
     clickOnOK = () => {
         const f = () => {
-            const {show} = this.state;
+            const { show } = this.state;
 
             this.setState({
                 show: !show,
@@ -256,9 +260,15 @@ export default class DataTimePicker extends Component {
         this._props2state(nextProps);
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        // todo оптимизировать рендеринг
+        return true;
+    }
+
     render() {
-        const {day, hours, minutes, month, show, showCalendar, showClock, type, weekday, year} = this.state,
-            {clickOnCancel, clickOnOK, handleChangeDay, handleChangeHours, handleChangeMinutes, handleChangeMonth, handleChangeType} = this;
+        console.log('render');
+        const { day, hours, minutes, month, show, showCalendar, showClock, type, weekday, year } = this.state,
+            { clickOnCancel, clickOnOK, handleChangeDay, handleChangeHours, handleChangeMinutes, handleChangeMonth, handleChangeType } = this;
 
         let body;
 
@@ -323,6 +333,9 @@ export default class DataTimePicker extends Component {
             picker = (
                 <div id="date-time-picker">
                     <div className="c-scrim c-scrim--shown" onClick={clickOnCancel}></div>
+                    <div className="close--button" onClick={clickOnCancel}>
+                        <i className="material-icons">cancel</i>
+                    </div>
                     <div className="c-datepicker c-datepicker--open">
                         {buttonClock}
                         {buttonCalendar}

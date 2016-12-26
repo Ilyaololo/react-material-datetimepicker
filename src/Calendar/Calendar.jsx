@@ -11,11 +11,11 @@ import { Week } from './Week';
 
 export default class Calendar extends Component {
     static propTypes = {
-        day: PropTypes.string.isRequired,
-        month: React.PropTypes.string.isRequired,
-        year: React.PropTypes.string.isRequired,
+        day:               PropTypes.string.isRequired,
+        month:             React.PropTypes.string.isRequired,
+        year:              React.PropTypes.string.isRequired,
         handleChangeMonth: PropTypes.func.isRequired,
-        handleChangeDay: PropTypes.func.isRequired,
+        handleChangeDay:   PropTypes.func.isRequired,
     };
 
     constructor(props) {
@@ -23,35 +23,51 @@ export default class Calendar extends Component {
     }
 
     handleClickOnNextMonth = () => {
-        const {handleChangeMonth, month} = this.props,
-            newMonthID = parseInt(moment().set({'month': month}).month(), 10) + 1;
+        const { handleChangeMonth, month } = this.props,
+            newMonthID = parseInt(moment().set({ 'month': month }).month(), 10) + 1;
 
         handleChangeMonth(moment().month(newMonthID).format('MMMM'));
     };
 
     handleClickOnPrevMonth = () => {
-        const {handleChangeMonth, month} = this.props,
-            newMonthID = parseInt(moment().set({'month': month}).month(), 10) - 1;
+        const { handleChangeMonth, month } = this.props,
+            newMonthID = parseInt(moment().set({ 'month': month }).month(), 10) - 1;
 
         handleChangeMonth(moment().month(newMonthID).format('MMMM'));
     };
 
     render() {
-        const {day, month, year, handleChangeDay} = this.props;
+        const { day, month, year, handleChangeDay } = this.props;
 
         let result = [],
-            numberWeek = moment().set({'date': 1, 'month': month, 'year': year}).week();
+            lastYear = String(parseInt(year, 10) - 1),
+            correctWeek,
+            correctYear,
+            numberWeek = moment().set({
+                'date':  1,
+                'month': month,
+                'year':  year
+            }).isoWeek();
+
+        const weekInYear = moment(`${lastYear}`, 'YYYY').isoWeeksInYear();
 
         if (month === "январь") {
-            for (let i = 1; i < 7; ++i) { // отображаем 6 недель календаря
+            for (let i = 0; i < 6; ++i) { // отображаем 6 недель алендаря
+                if (i === 0) {
+                    correctWeek = weekInYear;
+                    correctYear = lastYear;
+                } else {
+                    correctWeek = i;
+                    correctYear = year;
+                }
                 result.push(
                     <Week
-                        key={"Week_" + i}
-                        day={day}
-                        week={i}
-                        month={month}
-                        year={year}
-                        handleChangeDay={handleChangeDay}
+                        day={ day }
+                        handleChangeDay={ handleChangeDay }
+                        key={ `Week_${correctWeek}` }
+                        month={ month }
+                        week={ correctWeek }
+                        year={ correctYear }
                     />
                 );
             }
@@ -59,12 +75,12 @@ export default class Calendar extends Component {
             for (let i = numberWeek; i < numberWeek + 6; ++i) { // отображаем 6 недель календаря
                 result.push(
                     <Week
-                        key={"Week_" + i}
-                        day={day}
-                        week={i}
+                        day={ day }
+                        handleChangeDay={ handleChangeDay }
+                        key={ `Week_${i}` }
                         month={month}
-                        year={year}
-                        handleChangeDay={handleChangeDay}
+                        week={ i }
+                        year={ year }
                     />
                 );
             }

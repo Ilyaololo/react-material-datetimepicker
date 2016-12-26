@@ -5,6 +5,18 @@ $primary: #2196f3;
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
 
+  .close--button {
+    i {
+      position: fixed;
+      left: 61%;
+      cursor: pointer;
+
+      &:hover {
+        opacity: .7;
+      }
+    }
+  }
+
   .c-btn {
     font-size: 14px;
     font-weight: 600;
