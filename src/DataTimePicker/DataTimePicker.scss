@@ -7,8 +7,9 @@ $primary: #2196f3;
 
   .close--button {
     i {
-      position: fixed;
-      left: 61%;
+      position: absolute;
+      left: 100%;
+      top: -10%;
       cursor: pointer;
 
       &:hover {

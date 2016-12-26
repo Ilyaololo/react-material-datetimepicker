@@ -260,13 +260,7 @@ export default class DataTimePicker extends Component {
         this._props2state(nextProps);
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        // todo оптимизировать рендеринг
-        return true;
-    }
-
     render() {
-        console.log('render');
         const { day, hours, minutes, month, show, showCalendar, showClock, type, weekday, year } = this.state,
             { clickOnCancel, clickOnOK, handleChangeDay, handleChangeHours, handleChangeMinutes, handleChangeMonth, handleChangeType } = this;
 
@@ -333,15 +327,15 @@ export default class DataTimePicker extends Component {
             picker = (
                 <div id="date-time-picker">
                     <div className="c-scrim c-scrim--shown" onClick={clickOnCancel}></div>
-                    <div className="close--button" onClick={clickOnCancel}>
-                        <i className="material-icons">cancel</i>
-                    </div>
                     <div className="c-datepicker c-datepicker--open">
                         {buttonClock}
                         {buttonCalendar}
                         <div className="c-datepicker__header">
                             <div className="c-datepicker__header-day">
                                 <span className="js-day">{weekday}</span>
+                            </div>
+                            <div className="close--button" onClick={clickOnCancel}>
+                                <i className="material-icons">cancel</i>
                             </div>
                             <div className="c-datepicker__header-date">
                                 <span className="c-datepicker__header-date__month js-date-month">{month} {year}</span>
