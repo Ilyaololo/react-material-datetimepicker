@@ -144,21 +144,21 @@ export default class DataTimePicker extends Component {
                 const newYear = String(parseInt(year, 10) + 1);
 
                 this.setState({
-                    month: newMonth,
-                    year:  newYear,
+                    month:   newMonth,
+                    year:    newYear,
                     weekday: moment(`${newYear}-${newMonth}-${day}`, 'YYYY-MMMM-DD').format('dddd')
                 });
             } else if (month === "январь" && newMonth === "декабрь") { // для переключения на предыдущий год
                 const newYear = String(parseInt(year, 10) - 1);
 
                 this.setState({
-                    month: newMonth,
-                    year:  newYear,
+                    month:   newMonth,
+                    year:    newYear,
                     weekday: moment(`${newYear}-${newMonth}-${day}`, 'YYYY-MMMM-DD').format('dddd')
                 });
             } else {
                 this.setState({
-                    month: newMonth,
+                    month:   newMonth,
                     weekday: moment(`${year}-${newMonth}-${day}`, 'YYYY-MMMM-DD').format('dddd')
                 });
             }
@@ -176,7 +176,7 @@ export default class DataTimePicker extends Component {
     handleChangeDay = (day) => {
         const f = () => {
             this.setState({
-                day: day,
+                day:     day,
                 weekday: moment(`${day}`, 'DD').format('dddd')
             });
         };
@@ -327,15 +327,15 @@ export default class DataTimePicker extends Component {
             picker = (
                 <div id="date-time-picker">
                     <div className="c-scrim c-scrim--shown" onClick={clickOnCancel}></div>
+                    <div className="close--button" onClick={clickOnCancel}>
+                        <i className="material-icons">cancel</i>
+                    </div>
                     <div className="c-datepicker c-datepicker--open">
                         {buttonClock}
                         {buttonCalendar}
                         <div className="c-datepicker__header">
                             <div className="c-datepicker__header-day">
                                 <span className="js-day">{weekday}</span>
-                            </div>
-                            <div className="close--button" onClick={clickOnCancel}>
-                                <i className="material-icons">cancel</i>
                             </div>
                             <div className="c-datepicker__header-date">
                                 <span className="c-datepicker__header-date__month js-date-month">{month} {year}</span>
