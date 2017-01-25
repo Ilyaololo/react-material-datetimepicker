@@ -5,6 +5,7 @@
 "use strict";
 
 import React, { Component, PropTypes } from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 
 export default class Day extends Component {
     static propTypes = {
@@ -22,6 +23,10 @@ export default class Day extends Component {
         const { handleChangeDay } = this.props;
         handleChangeDay(e.target.innerText);
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
     render() {
         const { day, active, selectedDay } = this.props;

@@ -5,6 +5,7 @@
 "use strict";
 
 import React, { Component, PropTypes } from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 
 export default class Clock extends Component {
     static propTypes = {
@@ -38,6 +39,10 @@ export default class Clock extends Component {
                 type: false
             });
         }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
     }
 
     render() {

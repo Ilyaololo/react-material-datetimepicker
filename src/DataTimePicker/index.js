@@ -1,1 +1,3 @@
-export DataTimePicker from './DataTimePicker';
+import DataTimePicker from './DataTimePicker';
+
+export default DataTimePicker;

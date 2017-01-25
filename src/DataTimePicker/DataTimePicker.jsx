@@ -5,6 +5,7 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 
 import moment from 'moment';
 import 'moment/locale/ru';
@@ -50,9 +51,9 @@ export default class DataTimePicker extends Component {
             minutes:      moment().format("mm"), // минуты
             month:        moment().format("MMMM"), // месяц
             show:         true,
-            showCalendar: true,
-            showClock:    false,
-            type:         true, // активная вкладка: false - часы, true - календарь
+            showCalendar: false,
+            showClock:    true,
+            type:         false, // активная вкладка: false - часы, true - календарь
             weekday:      moment().format("dddd"), // день недели
             year:         moment().format("YYYY"), // год
         }
@@ -179,6 +180,8 @@ export default class DataTimePicker extends Component {
                 day:     day,
                 weekday: moment(`${day}`, 'DD').format('dddd')
             });
+
+            this.clickOnOK();
         };
 
         this._checkFunc('handleChangeDay', { day: day }, f, () => {
@@ -260,11 +263,15 @@ export default class DataTimePicker extends Component {
         this._props2state(nextProps);
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
+
     render() {
         const { day, hours, minutes, month, show, showCalendar, showClock, type, weekday, year } = this.state,
             { clickOnCancel, clickOnOK, handleChangeDay, handleChangeHours, handleChangeMinutes, handleChangeMonth, handleChangeType } = this;
 
-        let body;
+        let body, button;
 
         if (type) {
             if (showCalendar) {
@@ -287,6 +294,13 @@ export default class DataTimePicker extends Component {
                         hours={hours}
                         minutes={minutes}
                     />
+                );
+
+                button = (
+                    <div className="modal-btns">
+                        <a className="c-btn c-btn--flat js-cancel" onClick={clickOnCancel}>Назад</a>
+                        <a className="c-btn c-btn--flat js-ok" onClick={clickOnOK}>OK</a>
+                    </div>
                 );
             }
         }
@@ -351,10 +365,7 @@ export default class DataTimePicker extends Component {
 
                         {body}
 
-                        <div className="modal-btns">
-                            <a className="c-btn c-btn--flat js-cancel" onClick={clickOnCancel}>Назад</a>
-                            <a className="c-btn c-btn--flat js-ok" onClick={clickOnOK}>OK</a>
-                        </div>
+                        {button}
                     </div>
                 </div>
             );

@@ -5,9 +5,10 @@
 "use strict";
 
 import React, { Component, PropTypes } from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import moment from 'moment';
 
-import { Day } from '../Day';
+import Day from './Day';
 
 export default class Week extends Component {
     static propTypes = {
@@ -20,6 +21,10 @@ export default class Week extends Component {
 
     constructor(props) {
         super(props);
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
     }
 
     render() {

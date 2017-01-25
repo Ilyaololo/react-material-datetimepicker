@@ -1,17 +1,24 @@
 $lowlight: #206dbf;
 $primary: #2196f3;
 
+$mobileS: 320px;
+$mobileM: 375px;
+$mobileL: 420px;
+$tablet: 768px;
+$laptop: 1024px;
+$laptopL: 1440px;
+
 #date-time-picker {
-  font-family: 'Roboto', sans-serif;
+  font-family:            'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
 
   .close--button {
     i {
       position: absolute;
-      left: 102%;
-      top: -12%;
-      cursor: pointer;
-      color: #fff;
+      left:     102%;
+      top:      -12%;
+      cursor:   pointer;
+      color:    #ffffff;
 
       &:hover {
         opacity: .7;
@@ -20,34 +27,34 @@ $primary: #2196f3;
   }
 
   .c-btn {
-    font-size: 14px;
-    font-weight: 600;
-    display: inline-block;
-    line-height: 36px;
-    cursor: pointer;
-    text-align: center;
+    font-size:      14px;
+    font-weight:    600;
+    display:        inline-block;
+    line-height:    36px;
+    cursor:         pointer;
+    text-align:     center;
     text-transform: uppercase;
-    min-width: 88px;
-    height: 36px;
-    margin: 10px 8px;
-    padding: 0 8px;
+    min-width:      88px;
+    height:         36px;
+    margin:         10px 8px;
+    padding:        0 8px;
     letter-spacing: .5px;
-    border-radius: 2px;
-    background: #F1F1F1;
-    color: #393939;
-    transition: background 200ms ease-in-out;
-    box-shadow: 0 3.08696px 5.82609px 0 rgba(0, 0, 0, 0.16174), 0 3.65217px 12.91304px 0 rgba(0, 0, 0, 0.12435);
+    border-radius:  2px;
+    background:     #f1f1f1;
+    color:          #393939;
+    transition:     background 200ms ease-in-out;
+    box-shadow:     0 3.08696px 5.82609px 0 rgba(0, 0, 0, 0.16174), 0 3.65217px 12.91304px 0 rgba(0, 0, 0, 0.12435);
   }
 
   .c-btn--flat {
     background: transparent;
-    margin: 10px 8px;
-    min-width: 52px;
+    margin:     10px 8px;
+    min-width:  52px;
   }
 
   .c-btn:hover {
     background: rgba(153, 153, 153, 0.2);
-    color: #393939;
+    color:      #393939;
   }
 
   .c-btn:active {
@@ -59,15 +66,15 @@ $primary: #2196f3;
   }
 
   .c-scrim {
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    position:         fixed;
+    left:             0;
+    right:            0;
+    top:              0;
+    bottom:           0;
     background-color: rgba(0, 0, 0, 0.541176);
-    opacity: 0;
-    transition: 200ms ease opacity;
-    will-change: opacity;
+    opacity:          0;
+    transition:       200ms ease opacity;
+    will-change:      opacity;
 
     &--shown {
       opacity: 1;
@@ -75,25 +82,30 @@ $primary: #2196f3;
   }
 
   .c-datepicker {
-    min-height: 625px;
-    position: fixed;
-    left: 50%;
-    top: 45%;
-    transform: translate(-50%, -50%);
-    background: white;
-    border: 0;
-    width: 300px;
-    text-align: center;
+    position:                    fixed;
+    left:                        50%;
+    top:                         45%;
+    transform:                   translate(-50%, -50%);
+    background:                  white;
+    border:                      0;
+    text-align:                  center;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    box-shadow: 0 14px 45px rgba(0, 0, 0, 0.25), 0 10px 18px rgba(0, 0, 0, 0.22);
-    border-radius: 2px;
-    opacity: 0;
-    will-change: opacity;
-    transition: 200ms ease-in-out opacity, 200ms ease-in-out top;
+    box-shadow:                  0 14px 45px rgba(0, 0, 0, 0.25), 0 10px 18px rgba(0, 0, 0, 0.22);
+    border-radius:               2px;
+    opacity:                     0;
+    will-change:                 opacity;
+    transition:                  200ms ease-in-out opacity, 200ms ease-in-out top;
+    width:                       300px;
+    min-height:                  625px;
+
+    // TODO пофиксить!
+    @media (max-height: 625px) {
+      min-height: 300px;
+    }
 
     &--open {
       opacity: 1;
-      top: 50%;
+      top:     50%;
     }
   }
 
@@ -102,12 +114,12 @@ $primary: #2196f3;
   }
 
   .c-datepicker__header-day {
-    height: 32px;
-    background: $lowlight;
-    color: white;
-    line-height: 32px;
-    font-size: 12px;
-    font-weight: 200;
+    height:         32px;
+    background:     $lowlight;
+    color:          white;
+    line-height:    32px;
+    font-size:      12px;
+    font-weight:    200;
     letter-spacing: 0.3px;
     text-transform: capitalize;
   }
@@ -115,43 +127,43 @@ $primary: #2196f3;
   .c-datepicker__header::after {
     content: "";
     display: table;
-    clear: both;
+    clear:   both;
   }
 
   .c-datepicker__header-date {
     background: $primary;
-    height: 150px;
-    padding: 16px 0;
+    height:     150px;
+    padding:    16px 0;
   }
 
   .c-datepicker__month {
   }
 
   .rd-month-label {
-    height: 56px;
-    line-height: 56px;
-    font-size: 14px;
-    font-weight: 800;
+    height:         56px;
+    line-height:    56px;
+    font-size:      14px;
+    font-weight:    800;
     text-transform: capitalize;
   }
 
   .c-datepicker__back, .c-datepicker__next, .c-datepicker__toggle {
-    position: absolute;
-    border: 0;
-    background: white;
-    font-family: 'Material Icons';
-    text-rendering: optimizeLegibility;
-    font-feature-settings: "liga" 1;
-    font-style: normal;
-    text-transform: none;
-    line-height: 1;
-    font-size: 24px;
-    width: 56px;
-    height: 56px;
-    display: inline-block;
-    overflow: hidden;
+    position:               absolute;
+    border:                 0;
+    background:             white;
+    font-family:            'Material Icons';
+    text-rendering:         optimizeLegibility;
+    font-feature-settings:  "liga" 1;
+    font-style:             normal;
+    text-transform:         none;
+    line-height:            1;
+    font-size:              24px;
+    width:                  56px;
+    height:                 56px;
+    display:                inline-block;
+    overflow:               hidden;
     -webkit-font-smoothing: antialiased;
-    cursor: pointer;
+    cursor:                 pointer;
 
     &:focus {
       outline: 0;
@@ -175,38 +187,38 @@ $primary: #2196f3;
   }
 
   .c-datepicker--show-time:after {
-    content: 'access_time';
-    color: white;
+    content:    'access_time';
+    color:      white;
     visibility: visible;
   }
 
   .c-datepicker--show-calendar:after {
-    content: 'grid_on';
-    color: white;
+    content:    'grid_on';
+    color:      white;
     visibility: visible;
   }
 
   .c-datepicker__header-date span {
-    display: block;
-    color: white;
-    margin: 4px 0;
+    display:    block;
+    color:      white;
+    margin:     4px 0;
     transition: opacity 100ms ease-in-out;
   }
 
   .c-datepicker__header-date__month {
-    font-size: 24px;
-    opacity: 0.6;
+    font-size:      24px;
+    opacity:        0.6;
     text-transform: capitalize;
   }
 
   .c-datepicker__header-date__day {
     font-size: 64px;
-    opacity: 0.6;
+    opacity:   0.6;
   }
 
   .c-datepicker__header-date__time {
     font-size: 25px;
-    opacity: 0.6;
+    opacity:   0.6;
 
     > span {
       display: inline-block;
@@ -226,41 +238,40 @@ $primary: #2196f3;
   }
 
   .modal-btns {
-    padding: 10px;
+    padding:  10px;
     position: absolute;
-    bottom: 0;
-    right: 0;
+    bottom:   0;
+    right:    0;
   }
 
   .c-datepicker__day-body {
     font-size: 12px;
-    color: rgba(0, 0, 0, 0.8);
-    width: 36px;
-    height: 36px;
-    cursor: pointer;
-    position: relative;
+    color:     rgba(0, 0, 0, 0.8);
+    width:     36px;
+    height:    36px;
+    cursor:    pointer;
+    position:  relative;
   }
 
   .c-datepicker__day--selected::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 35px;
-    height: 35px;
+    content:       "";
+    position:      absolute;
+    left:          50%;
+    top:           50%;
+    width:         35px;
+    height:        35px;
     border-radius: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.05);
+    transform:     translate(-50%, -50%);
+    background:    rgba(0, 0, 0, 0.05);
   }
 
   .c-datepicker__day-body:hover {
-
   }
 
   .c-datepicker__day-head {
-    color: rgba(0, 0, 0, 0.54);
+    color:     rgba(0, 0, 0, 0.54);
     font-size: 12px;
-    height: 36px;
+    height:    36px;
   }
 
   .c-datepicker__day-head, c-datepicker__day-body {
@@ -272,18 +283,18 @@ $primary: #2196f3;
   }
 
   .c-btn {
-    display: inline-block;
+    display:   inline-block;
     min-width: 56px;
-    cursor: pointer;
+    cursor:    pointer;
   }
 
   .rd-day-prev-month {
-    opacity: 0.1;
+    opacity:        0.1;
     pointer-events: none;
   }
 
   .rd-day-next-month {
-    opacity: 0.1;
+    opacity:        0.1;
     pointer-events: none;
   }
 
@@ -293,8 +304,8 @@ $primary: #2196f3;
 
   .c-datepicker__date {
     position: absolute;
-    left: 0;
-    right: 0;
+    left:     0;
+    right:    0;
   }
 
   .c-datepicker__days {
@@ -303,9 +314,9 @@ $primary: #2196f3;
 
   .c-datepicker__header-toggle {
     position: absolute;
-    top: 50%;
-    color: white;
-    cursor: pointer;
+    top:      50%;
+    color:    white;
+    cursor:   pointer;
 
     i {
       font-size: 26px;
@@ -325,11 +336,11 @@ $primary: #2196f3;
   }
 
   .c-datepicker__toggle {
-    top: 170px;
-    width: 23px;
+    top:        170px;
+    width:      23px;
     visibility: hidden;
-    opacity: 0.5;
-    z-index: 1;
+    opacity:    0.5;
+    z-index:    1;
     transition: opacity 200ms ease-in-out;
   }
 
@@ -360,23 +371,21 @@ $primary: #2196f3;
   ) {
     $half-item: $item-size / 2;
     $half-parent: $circle-size / 2;
-
-    position: relative; /* [1] */
-    width: $circle-size;
-    height: $circle-size;
-    padding: 0;
+    position:      relative; /* [1] */
+    width:         $circle-size;
+    height:        $circle-size;
+    padding:       0;
     border-radius: 50%;
-    list-style: none; /* [2] */
+    list-style:    none; /* [2] */
 
     .c-datepicker__clock__num {
-      display: block;
+      display:  block;
       position: absolute;
-      top: 50%;
-      left: 50%;
-      width: $item-size;
-      height: $item-size;
-      margin: -$half-item;
-
+      top:      50%;
+      left:     50%;
+      width:    $item-size;
+      height:   $item-size;
+      margin:   -$half-item;
       $angle: 360 / $nb-items;
       $rot: 0;
       @for $i from 1 to $nb-items+1 {
@@ -391,7 +400,7 @@ $primary: #2196f3;
               $handRot: $rot + 270;
               transform: translate(-50%, -50%) rotate(#{$handRot}deg);
               .c-datepicker__hour-hand {
-                opacity: 1;
+                opacity:    1;
                 background: rgba(0, 0, 0, 0.05);
               }
             }
@@ -401,7 +410,7 @@ $primary: #2196f3;
               $handRot: $rot + 270;
               transform: translate(-50%, -50%) rotate(#{$handRot}deg);
               .c-datepicker__hour-hand {
-                opacity: 1;
+                opacity:    1;
                 background: $primary
               }
             }
@@ -414,47 +423,47 @@ $primary: #2196f3;
 
   .c-datepicker__clock {
     @include putOnCircle(12, 200px, 36px);
-    font-size: 14px;
+    font-size:   14px;
     line-height: 36px;
-    padding: 160px 0 20px 0;
-    margin: 0 auto;
-    position: relative;
+    padding:     160px 0 20px 0;
+    margin:      0 auto;
+    position:    relative;
 
     &::before {
-      content: "";
-      position: absolute;
-      top: 70px;
-      left: -20px;
-      width: 240px;
-      height: 240px;
-      background: rgba(0, 0, 0, 0.05);
+      content:       "";
+      position:      absolute;
+      top:           70px;
+      left:          -20px;
+      width:         240px;
+      height:        240px;
+      background:    rgba(0, 0, 0, 0.05);
       border-radius: 50%;
     }
   }
 
   .u-hover-ball-effect {
     position: relative;
-    cursor: pointer;
+    cursor:   pointer;
 
     &:before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 0%;
-      height: 0%;
+      content:       "";
+      position:      absolute;
+      left:          50%;
+      top:           50%;
+      width:         0%;
+      height:        0%;
       border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: width 100ms ease-in-out,
-      height 100ms ease-in-out
+      transform:     translate(-50%, -50%);
+      transition:    width 100ms ease-in-out,
+                     height 100ms ease-in-out
     }
     &:hover {
       color: white;
       &:before {
         background: $primary;
-        width: 35px;
-        height: 35px;
-        z-index: -1;
+        width:      35px;
+        height:     35px;
+        z-index:    -1;
       }
     }
   }
@@ -465,42 +474,41 @@ $primary: #2196f3;
     &--active {
       &:before {
         background: rgba(0, 0, 0, 0.05);
-        width: 35px;
-        height: 35px;
-        z-index: -1;
+        width:      35px;
+        height:     35px;
+        z-index:    -1;
       }
     }
   }
 
   .c-datepicker__clock-hands {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) rotate(180deg);
-    width: 10px;
-    height: 10px;
+    position:      absolute;
+    left:          50%;
+    top:           50%;
+    transform:     translate(-50%, -50%) rotate(180deg);
+    width:         10px;
+    height:        10px;
     border-radius: 50%;
-    background: $lowlight;
+    background:    $lowlight;
   }
 
   .c-datepicker__hour-hand {
-    position: absolute;
-    opacity: 0;
-    height: 78px;
-    width: 2px;
+    position:   absolute;
+    opacity:    0;
+    height:     78px;
+    width:      2px;
     background: $primary;
-    left: 4px;
-    top: 10px;
+    left:       4px;
+    top:        10px;
   }
 
   .c-datepicker__clock__minutes {
     transform: translateY(30px) scale(0.7);
     font-size: 18px;
-    opacity: 1;
+    opacity:   1;
   }
 
   .c-datepicker__clock__hours {
-
   }
 
   .c-datepicker__clock--show-minutes {
@@ -522,16 +530,16 @@ $primary: #2196f3;
   }
 
   .c-datepicker__clock__am-pm-toggle {
-    position: absolute;
-    top: 0;
-    left: 10px;
-    right: 10px;
-    height: 40px;
-    padding: 20px;
+    position:    absolute;
+    top:         0;
+    left:        10px;
+    right:       10px;
+    height:      40px;
+    padding:     20px;
     line-height: 40px;
 
     label {
-      width: 40px;
+      width:    40px;
       position: absolute;
       &:nth-child(1) {
         left: 0;
@@ -542,16 +550,16 @@ $primary: #2196f3;
       @extend .u-hover-ball-effect;
 
       &.c-datepicker__toggle--checked::after {
-        content: "";
-        position: absolute;
-        left: 50%;
-        top: 50%;
+        content:       "";
+        position:      absolute;
+        left:          50%;
+        top:           50%;
         border-radius: 50%;
-        transform: translate(-50%, -50%);
-        width: 36px;
-        height: 36px;
-        z-index: -1;
-        background: rgba(0, 0, 0, 0.05);
+        transform:     translate(-50%, -50%);
+        width:         36px;
+        height:        36px;
+        z-index:       -1;
+        background:    rgba(0, 0, 0, 0.05);
       }
     }
   }

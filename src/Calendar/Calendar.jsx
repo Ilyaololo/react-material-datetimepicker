@@ -5,17 +5,18 @@
 "use strict";
 
 import React, { Component, PropTypes } from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import moment from 'moment';
 
-import { Week } from './Week';
+import Week from './Week';
 
 export default class Calendar extends Component {
     static propTypes = {
         day:               PropTypes.string.isRequired,
-        month:             React.PropTypes.string.isRequired,
-        year:              React.PropTypes.string.isRequired,
-        handleChangeMonth: PropTypes.func.isRequired,
         handleChangeDay:   PropTypes.func.isRequired,
+        handleChangeMonth: PropTypes.func.isRequired,
+        month:             PropTypes.string.isRequired,
+        year:              PropTypes.string.isRequired,
     };
 
     constructor(props) {
@@ -35,6 +36,10 @@ export default class Calendar extends Component {
 
         handleChangeMonth(moment().month(newMonthID).format('MMMM'));
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
     render() {
         const { day, month, year, handleChangeDay } = this.props;
@@ -91,8 +96,8 @@ export default class Calendar extends Component {
                 <div className="c-datepicker__calendar" id="inline-block">
                     <div className="c-datepicker__date">
                         <div className="c-datepicker__month">
-                            <button className="c-datepicker__back" type="button" onClick={this.handleClickOnPrevMonth}/>
-                            <button className="c-datepicker__next" type="button" onClick={this.handleClickOnNextMonth}/>
+                            <button className="c-datepicker__back" type="button" onClick={this.handleClickOnPrevMonth} />
+                            <button className="c-datepicker__next" type="button" onClick={this.handleClickOnNextMonth} />
                             <div className="rd-month-label">{month} {year}</div>
                             <table className="c-datepicker__days">
                                 <thead className="c-datepicker__days-head">

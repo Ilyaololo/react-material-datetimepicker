@@ -1,1 +1,3 @@
-export Clock from './Clock';
+import Clock from './Clock';
+
+export default Clock;
