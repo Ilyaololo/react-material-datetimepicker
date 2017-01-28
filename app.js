@@ -13,7 +13,11 @@ class App extends PureComponent {
 
     render() {
         return (
-            <DataTimePicker />
+            <DataTimePicker
+                showCalendar={ false }
+                showClock={ true }
+                type={ false }
+            />
         );
     }
 }

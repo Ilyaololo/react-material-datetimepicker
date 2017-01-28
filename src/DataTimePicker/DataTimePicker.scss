@@ -98,9 +98,12 @@ $laptopL: 1440px;
     width:                       300px;
     min-height:                  625px;
 
-    // TODO пофиксить!
     @media (max-height: 625px) {
-      min-height: 300px;
+      min-height: 530px;
+    }
+
+    @media (max-height: 530px) {
+      min-height: 360px;
     }
 
     &--open {
@@ -122,6 +125,10 @@ $laptopL: 1440px;
     font-weight:    200;
     letter-spacing: 0.3px;
     text-transform: capitalize;
+
+    @media (max-height: 530px) {
+      display: none;
+    }
   }
 
   .c-datepicker__header::after {
@@ -133,6 +140,15 @@ $laptopL: 1440px;
   .c-datepicker__header-date {
     background: $primary;
     height:     150px;
+
+    @media (max-height: 625px) {
+      height: 110px;
+    }
+
+    @media (max-height: 530px) {
+      display: none;
+    }
+
     padding:    16px 0;
   }
 
@@ -203,12 +219,22 @@ $laptopL: 1440px;
     color:      white;
     margin:     4px 0;
     transition: opacity 100ms ease-in-out;
+
+    @media (max-height: 530px) {
+      display: none;
+    }
   }
 
   .c-datepicker__header-date__month {
     font-size:      24px;
     opacity:        0.6;
     text-transform: capitalize;
+
+    &.js-date-month {
+      @media (max-height: 530px) {
+        display: none;
+      }
+    }
   }
 
   .c-datepicker__header-date__day {
@@ -222,6 +248,12 @@ $laptopL: 1440px;
 
     > span {
       display: inline-block;
+    }
+
+    &.js-date-time {
+      @media (max-height: 625px) {
+        display: none;
+      }
     }
   }
 
