@@ -103,7 +103,7 @@ $laptopL: 1440px;
     }
 
     @media (max-height: 530px) {
-      min-height: 360px;
+      min-height: 400px;
     }
 
     &--open {
@@ -126,9 +126,9 @@ $laptopL: 1440px;
     letter-spacing: 0.3px;
     text-transform: capitalize;
 
-    @media (max-height: 530px) {
-      display: none;
-    }
+    //@media (max-height: 530px) {
+    //  display: none;
+    //}
   }
 
   .c-datepicker__header::after {
