@@ -9,58 +9,51 @@ import shallowCompare from 'react-addons-shallow-compare';
 
 import moment from 'moment';
 import 'moment/locale/ru';
+moment.locale('ru');
 
 import { Calendar, Clock } from '../';
 
 export default class DataTimePicker extends Component {
     static propTypes = {
-        clickOnCancel:       React.PropTypes.func,
-        clickOnOK:           React.PropTypes.func,
-        day:                 React.PropTypes.string,
-        handleChangeDay:     React.PropTypes.func,
-        handleChangeHours:   React.PropTypes.func,
-        handleChangeMinutes: React.PropTypes.func,
-        handleChangeMonth:   React.PropTypes.func,
-        handleChangeType:    React.PropTypes.func,
-        hours:               React.PropTypes.string,
-        minutes:             React.PropTypes.string,
-        month:               React.PropTypes.string,
+        clickOnCancel:       PropTypes.func,
+        clickOnOK:           PropTypes.func,
+        day:                 PropTypes.string,
+        handleChangeDay:     PropTypes.func,
+        handleChangeHours:   PropTypes.func,
+        handleChangeMinutes: PropTypes.func,
+        handleChangeMonth:   PropTypes.func,
+        handleChangeType:    PropTypes.func,
+        hours:               PropTypes.string,
+        minutes:             PropTypes.string,
+        month:               PropTypes.string,
         show:                PropTypes.bool,
         showCalendar:        PropTypes.bool,
         showClock:           PropTypes.bool,
         type:                PropTypes.bool,
-        weekday:             React.PropTypes.string,
-        year:                React.PropTypes.string,
+        weekday:             PropTypes.string,
+        year:                PropTypes.string,
     };
 
     constructor(props) {
         super(props);
+        this.displayName = "DataTimePicker";
 
-        /**
-         * Подключаем локаль
-         */
-        moment.locale('ru');
-
-        /**
-         * Состояние, где будут хранится параметры компонента
-         * По-умолчанию, дата и время берутся из системного времени
-         */
         this.state = {
             day:          moment().format("DD"), // день
             hours:        moment().format("HH"), // часы
             minutes:      moment().format("mm"), // минуты
             month:        moment().format("MMMM"), // месяц
             show:         true,
-            showCalendar: false,
-            showClock:    true,
-            type:         false, // активная вкладка: false - часы, true - календарь
+            showCalendar: true,
+            showClock:    false,
+            type:         true, // активная вкладка: false - часы, true - календарь
             weekday:      moment().format("dddd"), // день недели
             year:         moment().format("YYYY"), // год
-        }
+        };
     }
 
     /**
-     * Вызов родного обработчика или того, что передали
+     * Вызов "родного" обработчика или того, что передали
      * @param props
      * @param arg
      * @param lastFunc
@@ -103,17 +96,11 @@ export default class DataTimePicker extends Component {
      * @private
      */
     _checkProp = (name, props) => {
-        const { state } = this;
+        let result = this.state;
 
-        let result = {};
-
-        if (this.props.hasOwnProperty(name)) {
+        if (this.props.hasOwnProperty(name) && this.props[name] != undefined) {
             result[name] = props;
-
-            this.setState({
-                ...state,
-                ...result,
-            })
+            this.setState(result);
         }
     };
 
@@ -263,25 +250,21 @@ export default class DataTimePicker extends Component {
         this._props2state(nextProps);
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
-
     render() {
         const { day, hours, minutes, month, show, showCalendar, showClock, type, weekday, year } = this.state,
             { clickOnCancel, clickOnOK, handleChangeDay, handleChangeHours, handleChangeMinutes, handleChangeMonth, handleChangeType } = this;
 
-        let body, button;
+        let body, button, picker;
 
         if (type) {
             if (showCalendar) {
                 body = (
                     <Calendar
-                        day={day}
-                        handleChangeDay={handleChangeDay}
-                        handleChangeMonth={handleChangeMonth}
-                        month={month}
-                        year={year}
+                        day={ day }
+                        handleChangeDay={ handleChangeDay }
+                        handleChangeMonth={ handleChangeMonth }
+                        month={ month }
+                        year={ year }
                     />
                 );
             }
@@ -289,24 +272,23 @@ export default class DataTimePicker extends Component {
             if (showClock) {
                 body = (
                     <Clock
-                        handleChangeHours={handleChangeHours}
-                        handleChangeMinutes={handleChangeMinutes}
-                        hours={hours}
-                        minutes={minutes}
+                        handleChangeHours={ handleChangeHours }
+                        handleChangeMinutes={ handleChangeMinutes }
+                        hours={ hours }
+                        minutes={ minutes }
                     />
                 );
 
                 button = (
                     <div className="modal-btns">
-                        <a className="c-btn c-btn--flat js-cancel" onClick={clickOnCancel}>Назад</a>
-                        <a className="c-btn c-btn--flat js-ok" onClick={clickOnOK}>OK</a>
+                        <a className="c-btn c-btn--flat js-cancel" onClick={ clickOnCancel }>Назад</a>
+                        <a className="c-btn c-btn--flat js-ok" onClick={ clickOnOK }>OK</a>
                     </div>
                 );
             }
         }
 
-        let picker,
-            buttonCalendar,
+        let buttonCalendar,
             buttonClock;
 
         if (showCalendar && showClock) {
@@ -317,9 +299,7 @@ export default class DataTimePicker extends Component {
                     name="date-toggle"
                     value="calendar"
                     defaultChecked={ type }
-                    onClick={() => {
-                        handleChangeType(true)
-                    }}
+                    onClick={ () => handleChangeType(true) }
                 />
             );
 
@@ -330,9 +310,7 @@ export default class DataTimePicker extends Component {
                     name="date-toggle"
                     value="time"
                     defaultChecked={ !type }
-                    onClick={() => {
-                        handleChangeType(false)
-                    }}
+                    onClick={ () => handleChangeType(false) }
                 />
             );
         }
@@ -340,32 +318,30 @@ export default class DataTimePicker extends Component {
         if (show) {
             picker = (
                 <div id="date-time-picker">
-                    <div className="c-scrim c-scrim--shown" onClick={clickOnCancel}></div>
+                    <div className="c-scrim c-scrim--shown" onClick={ clickOnCancel }></div>
                     <div className="c-datepicker c-datepicker--open">
-                        {buttonClock}
-                        {buttonCalendar}
+                        { buttonClock }
+                        { buttonCalendar }
                         <div className="c-datepicker__header">
-                            <div className="close--button" onClick={clickOnCancel}>
+                            <div className="close--button" onClick={ clickOnCancel }>
                                 <i className="material-icons">cancel</i>
                             </div>
                             <div className="c-datepicker__header-day">
-                                <span className="js-day">{weekday}</span>
+                                <span className="js-day">{ weekday }</span>
                             </div>
                             <div className="c-datepicker__header-date">
-                                <span className="c-datepicker__header-date__month js-date-month">{month} {year}</span>
-                                <span className="c-datepicker__header-date__day js-date-day">{day}</span>
+                                <span className="c-datepicker__header-date__month js-date-month">{ month } { year }</span>
+                                <span className="c-datepicker__header-date__day js-date-day">{ day }</span>
                                 <span className="c-datepicker__header-date__time js-date-time">
-                                    <span
-                                        className="c-datepicker__header-date__hours js-date-hours">{hours}</span>:
-                                    <span
-                                        className="c-datepicker__header-date__minutes js-date-minutes">{minutes}</span>
+                                    <span className="c-datepicker__header-date__hours js-date-hours">{ hours }</span>:
+                                    <span className="c-datepicker__header-date__minutes js-date-minutes">{ minutes }</span>
                                 </span>
                             </div>
                         </div>
 
-                        {body}
+                        { body }
 
-                        {button}
+                        { button }
                     </div>
                 </div>
             );
@@ -373,7 +349,7 @@ export default class DataTimePicker extends Component {
 
         return (
             <div>
-                {picker}
+                { picker }
             </div>
         );
     }

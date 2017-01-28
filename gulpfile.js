@@ -55,8 +55,8 @@ gulp.task('convert-sass', function () {
 
 gulp.task('js', function () {
     let cb = browserify({
-        //entries:      ['./src/DataTimePicker/DataTimePicker.jsx'], // Only need initial file, browserify finds the deps
-        entries:      ['./app.js'],
+        entries:      ['./src/DataTimePicker/DataTimePicker.jsx'], // Only need initial file, browserify finds the deps
+        //entries:      ['./app.js'],
         debug:        !argv.prod, // Gives us sourcemapping
         cache:        {},
         packageCache: {},
