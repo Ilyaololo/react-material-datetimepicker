@@ -56,14 +56,13 @@ export default class DataTimePicker extends Component {
      * @param props
      * @param arg
      * @param lastFunc
-     * @param cb
      * @private
      */
-    _checkFunc = (props, arg, lastFunc, cb) => {
+    _checkFunc = (props, arg, lastFunc) => {
         if (this.props.hasOwnProperty(props) && this.props[props] instanceof Function) {
             this.props[props](this, arg, lastFunc);
         } else {
-            cb();
+            lastFunc();
         }
     };
 
@@ -114,9 +113,7 @@ export default class DataTimePicker extends Component {
             });
         };
 
-        this._checkFunc('handleChangeType', { type: type }, f, () => {
-            f();
-        });
+        this._checkFunc('handleChangeType', { type: type }, f);
     };
 
     /**
@@ -151,9 +148,7 @@ export default class DataTimePicker extends Component {
             }
         };
 
-        this._checkFunc('handleChangeMonth', { newMonth: newMonth }, f, () => {
-            f();
-        });
+        this._checkFunc('handleChangeMonth', { newMonth: newMonth }, f);
     };
 
     /**
@@ -164,15 +159,11 @@ export default class DataTimePicker extends Component {
         const f = () => {
             this.setState({
                 day:     day,
-                weekday: moment(`${day}`, 'DD').format('dddd')
-            });
-
-            this.clickOnOK();
+                weekday: moment(`${day}`, 'DD').format('dddd'),
+            }, this.clickOnOK);
         };
 
-        this._checkFunc('handleChangeDay', { day: day }, f, () => {
-            f();
-        });
+        this._checkFunc('handleChangeDay', { day: day }, f);
     };
 
     /**
@@ -186,9 +177,7 @@ export default class DataTimePicker extends Component {
             });
         };
 
-        this._checkFunc('handleChangeHours', { hours: hours }, f, () => {
-            f();
-        });
+        this._checkFunc('handleChangeHours', { hours: hours }, f);
     };
 
     /**
@@ -202,9 +191,7 @@ export default class DataTimePicker extends Component {
             });
         };
 
-        this._checkFunc('handleChangeMinutes', { minutes: minutes }, f, () => {
-            f();
-        });
+        this._checkFunc('handleChangeMinutes', { minutes: minutes }, f);
     };
 
     /**
@@ -212,16 +199,14 @@ export default class DataTimePicker extends Component {
      */
     clickOnCancel = () => {
         const f = () => {
-            const { show } = this.state;
-
-            this.setState({
-                show: !show,
+            this.setState((prevState, props) => {
+                return {
+                    show: !prevState.show,
+                };
             });
         };
 
-        this._checkFunc('clickOnCancel', {}, f, () => {
-            f();
-        });
+        this._checkFunc('clickOnCancel', {}, f);
     };
 
     /**
@@ -229,16 +214,14 @@ export default class DataTimePicker extends Component {
      */
     clickOnOK = () => {
         const f = () => {
-            const { show } = this.state;
-
-            this.setState({
-                show: !show,
+            this.setState((prevState, props) => {
+                return {
+                    show: !prevState.show,
+                };
             });
         };
 
-        this._checkFunc('clickOnOK', {}, f, () => {
-            f();
-        });
+        this._checkFunc('clickOnOK', {}, f);
     };
 
     componentDidMount() {
@@ -329,11 +312,13 @@ export default class DataTimePicker extends Component {
                                 <span className="js-day">{ weekday }</span>
                             </div>
                             <div className="c-datepicker__header-date">
-                                <span className="c-datepicker__header-date__month js-date-month">{ month } { year }</span>
+                                <span
+                                    className="c-datepicker__header-date__month js-date-month">{ month } { year }</span>
                                 <span className="c-datepicker__header-date__day js-date-day">{ day }</span>
                                 <span className="c-datepicker__header-date__time js-date-time">
                                     <span className="c-datepicker__header-date__hours js-date-hours">{ hours }</span>:
-                                    <span className="c-datepicker__header-date__minutes js-date-minutes">{ minutes }</span>
+                                    <span
+                                        className="c-datepicker__header-date__minutes js-date-minutes">{ minutes }</span>
                                 </span>
                             </div>
                         </div>
