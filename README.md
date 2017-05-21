@@ -128,7 +128,7 @@ class App extends Component {
             showCalendar: true, // покаывать календарь
             showClock: false, // показывать часы
             type: true, // активная вкладка
-            weekday: moment().format("dddd") // день недели
+            weekday: moment().format("dddd"), // день недели
             year: moment().format("YYYY"), // год
         }
     }
