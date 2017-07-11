@@ -1,0 +1,38 @@
+@import "mixins";
+@import "variables";
+
+.calendar {
+  .base(years);
+
+  .base(months);
+
+  .months {
+    &__item {
+      text-transform: capitalize;
+    }
+  }
+
+  .weeks {
+    display: flex;
+    flex-direction: column;
+
+    .weekdays {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+
+      &__item {
+        text-transform: capitalize;
+      }
+    }
+
+    .days {
+      &__item {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+    }
+  }
+}

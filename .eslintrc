@@ -1,0 +1,79 @@
+{
+  "extends": [
+    "eslint-config-airbnb"
+  ],
+  "plugins": [
+    "import",
+    "react"
+  ],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "ecmaFeatures": {
+    "jsx": true,
+    "modules": true
+  },
+  "rules": {
+    "arrow-body-style": "off",
+    "arrow-parens": "off",
+    "comma-dangle": "off",
+    "eol-last": 0,
+    "import/extensions": ["off"],
+    "import/no-extraneous-dependencies": "off",
+    "import/no-unresolved": "off",
+    "import/prefer-default-export": "off",
+    "indent": ["error", 4, {"SwitchCase": 1}],
+    "jsx-a11y/href-no-hash": "off",
+    "jsx-quotes": [1, "prefer-double"],
+    "max-len": ["error", 120],
+    "new-cap": 0,
+    "no-console": 1,
+    "no-continue": "off",
+    "no-debugger": 0,
+    "no-mixed-spaces-and-tabs": 1,
+    "no-multi-spaces": 1,
+    "no-plusplus": "off",
+    "no-prototype-builtins": "off",
+    "no-return-assign": 0,
+    "no-shadow": 0,
+    "no-underscore-dangle": 0,
+    "no-use-before-define": 0,
+    "no-useless-escape": "off",
+    "object-curly-spacing": 0,
+    "one-var": 0,
+    "quotes": [2, "single"],
+    "react/jsx-closing-bracket-location": 1,
+    "react/jsx-curly-spacing": 1,
+    "react/jsx-filename-extension": "off",
+    "react/jsx-indent": [1, 4],
+    "react/jsx-indent-props": [1, 4],
+    "react/jsx-no-undef": 1,
+    "react/jsx-pascal-case": [1],
+    "react/jsx-sort-props": 0,
+    "react/jsx-tag-spacing": [2, {"beforeSelfClosing": "always"}],
+    "react/jsx-uses-react": 1,
+    "react/jsx-uses-vars": 1,
+    "react/jsx-wrap-multilines": 1,
+    "react/no-danger": "off",
+    "react/no-did-mount-set-state": 1,
+    "react/no-did-update-set-state": 1,
+    "react/no-direct-mutation-state": 1,
+    "react/no-multi-comp": 0,
+    "react/no-unknown-property": 2,
+    "react/prefer-es6-class": [1],
+    "react/prop-types": 2,
+    "react/react-in-jsx-scope": 2,
+    "react/require-default-props": [2],
+    "react/self-closing-comp": 1,
+    "semi": "error",
+    "space-before-blocks": 1,
+    "strict": 0
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": true
+  }
+}

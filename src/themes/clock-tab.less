@@ -1,0 +1,31 @@
+@import "variables";
+
+.clock-tab {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 10px 5px;
+
+  .time {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    min-height: 120px;
+
+    &__hour,
+    &__minute {
+      @size: 65px;
+
+      color: @white;
+      display: flex;
+      flex-direction: row;
+      font-size: @size;
+      justify-content: center;
+      line-height: @size;
+    }
+
+    &__hour:after {
+      content: ':';
+    }
+  }
+}

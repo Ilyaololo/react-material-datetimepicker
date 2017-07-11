@@ -1,0 +1,54 @@
+@import "variables";
+
+.calendar-tab {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 10px 5px;
+
+  .shared(@size) {
+    display: flex;
+    flex-direction: row;
+    font-size: @size;
+    justify-content: center;
+    line-height: @size;
+  };
+
+  &__day,
+  &__month,
+  &__year {
+    color: darken(@white, 15);
+    cursor: pointer;
+    font-weight: 500;
+    opacity: 0.7;
+    transition: all 100ms ease-in-out;
+
+    &:hover,
+    &_active {
+      color: @white;
+      opacity: 1;
+    }
+  }
+
+  &__day {
+    @size: 65px;
+
+    .shared(@size);
+    padding-bottom: 5px;
+    padding-top: 15px;
+  }
+
+  &__month {
+    @size: 25px;
+
+    .shared(@size);
+    padding-bottom: 10px;
+    text-transform: capitalize;
+  }
+
+  &__year {
+    @size: 25px;
+
+    font-size: @size;
+    line-height: @size;
+  }
+}

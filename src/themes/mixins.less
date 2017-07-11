@@ -1,0 +1,30 @@
+@import "variables";
+
+.base(@name) {
+  .@{name} {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+    &__item {
+      @size: 20px;
+
+      cursor: pointer;
+      font-size: @size;
+      line-height: @size;
+      margin: 5px 0;
+
+      &_active {
+        cursor: not-allowed;
+      }
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

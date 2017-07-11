@@ -1,0 +1,13 @@
+@import "mixins";
+@import "variables";
+
+.clock {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+
+    .base(hours);
+
+    .base(minutes);
+}

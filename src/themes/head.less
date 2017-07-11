@@ -1,0 +1,75 @@
+@import "variables";
+
+.head {
+  box-shadow: 0 0 5px 0 darken(#000, 15);
+  position: relative;
+
+  &__close {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    right: 0;
+
+    i {
+      color: darken(@white, 15);
+      font-size: 32px;
+      font-weight: 600;
+      opacity: 0.7;
+      transition: all 100ms ease-in-out;
+    }
+
+    &:hover {
+      i {
+        color: @white;
+        opacity: 1;
+      }
+    }
+  }
+
+  &__weekday {
+    align-items: center;
+    background-color: @low;
+    color: @white;
+    display: flex;
+    flex-direction: row;
+    font-size: 15px;
+    font-weight: 400;
+    justify-content: center;
+    line-height: 32px;
+    text-transform: capitalize;
+  }
+
+  .head-panel {
+    background-color: @primary;
+    display: flex;
+    flex-direction: column;
+    min-height: 174px;
+
+    .switcher {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      &__tab {
+        i {
+          color: darken(@white, 15);
+          cursor: pointer;
+          opacity: 0.7;
+          transition: all 100ms ease-in-out;
+        }
+
+        &:hover,
+        &_active {
+          i {
+            color: @white;
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    @import "calendar-tab";
+    @import "clock-tab";
+  }
+}

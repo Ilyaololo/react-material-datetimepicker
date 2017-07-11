@@ -1,0 +1,23 @@
+@import "variables";
+
+.date-time-picker {
+  border-radius: 3px;
+  border: solid 0.1px @dark;
+  box-shadow: 0 0 1px lighten(@dark, 15);
+  font-family: Roboto, 'Arial';
+  left: 50%;
+  max-height: 550px;
+  max-width: 320px;
+  position: static;
+  top: 50%;
+
+  // bootstrap добавляет элементам с атрибутом role outline
+  :focus {
+    outline: none;
+  }
+
+  @import "calendar";
+  @import "clock";
+  @import "cursor";
+  @import "head";
+}

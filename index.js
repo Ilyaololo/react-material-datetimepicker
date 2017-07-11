@@ -1,3 +1,1 @@
-import { DataTimePicker } from './src';
-
-export default DataTimePicker;
+module.exports = require('./dist/react-material-datetime-picker');
